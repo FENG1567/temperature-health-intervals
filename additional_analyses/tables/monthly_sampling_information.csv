@@ -1,0 +1,5 @@
+﻿panel,n,df,region_clusters,year_clusters,corrected_attribution_variance,corrected_attribution_standard_error,base_half_width,covariance_min_eigenvalue,converged,source_file,source_sha256
+BRA,3213,9,27,10,157277661.0790123,12541.039074933637,22989.140917175406,-0.06691955017349685,True,F:\分析专用\conformal_attribution_upgrade_20261112\results\monthly_bound_repair.json,16345edfc84b4ba351cf3f5d5a08ce83c965f13ae9c9b3f6155a7d1df85f8186
+MEX,3808,9,32,10,6298260.3801744245,2509.6335151122016,4600.441652773175,-0.03719708056227653,True,F:\分析专用\conformal_attribution_upgrade_20261112\results\monthly_bound_repair.json,16345edfc84b4ba351cf3f5d5a08ce83c965f13ae9c9b3f6155a7d1df85f8186
+SIM,1917,5,27,6,838536809.328976,28957.500053163705,58350.76337791846,-0.018125235617461523,True,F:\分析专用\conformal_attribution_upgrade_20261112\results\monthly_bound_repair.json,16345edfc84b4ba351cf3f5d5a08ce83c965f13ae9c9b3f6155a7d1df85f8186
+MEXD,3808,9,32,10,579511768.8596256,24073.05067621521,44128.620522996396,-0.04987955462337052,True,F:\分析专用\conformal_attribution_upgrade_20261112\results\monthly_bound_repair.json,16345edfc84b4ba351cf3f5d5a08ce83c965f13ae9c9b3f6155a7d1df85f8186

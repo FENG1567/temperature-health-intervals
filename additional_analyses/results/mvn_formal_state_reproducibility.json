@@ -1,0 +1,48 @@
+{
+  "case": "state",
+  "mode": "formal",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "pandas": "2.2.3",
+  "workers": 4,
+  "blas_threads_per_worker": 1,
+  "planned_replications_per_scenario": 1000,
+  "planned_outcomes": 3000,
+  "primary_draws": 2048,
+  "antithetic_draws": true,
+  "stability_draws": [
+    4096,
+    8192
+  ],
+  "stability_replicates_per_scenario": 20,
+  "psd_relative_tolerance": 1e-10,
+  "input_sha256": "fc972f919a5e5d51280a4093b4992d2b5ea7add6c51c2193b741d412825a42d3",
+  "approved_config_sha256": "356fef29732d1b530f3196565e2fa02ddd5e68e22ec5c07453dcadeeae1ab610",
+  "engine_code_sha256": "59b7392414cea1288b0d81a272db5466742ac47245c3e22012d0cb3362a2c940",
+  "old_real_panel_audit_sha256": "59b7392414cea1288b0d81a272db5466742ac47245c3e22012d0cb3362a2c940",
+  "quasi_baseline_sha256": "5eebb2b93d9de7728e7b942c60e4bf0fe38f777e17a4dfde92f0d3f83c6c3a88",
+  "mvn_script_sha256": "009c87f8c779f4558ac0bfe17e8ba36fab42fdfea6e5d987d0633f1e5314be66",
+  "formal_reproducibility_sha256": "d5ed4c204e42edea11c83b479fc0b401162448001bafb5c2626c3b622d0497c0",
+  "seed_replay": {
+    "outcome_seed_rule": "legacy SeedSequence([base_seed, formal_mode_id, scenario_seed_id, replicate_index])",
+    "mvn_draw_seed_rule": "SeedSequence([base_seed, formal_mode_id, scenario_seed_id, replicate_index, 78111]); same Z shared by Quasi and HAC28",
+    "unique_outcome_hashes": 3000,
+    "expected_unique_outcome_hashes": 3000,
+    "all_replay_A_hat_and_model_SE_match_within_relative_1e_8": true,
+    "max_relative_A_hat_difference": 2.1893695444419637e-11,
+    "max_relative_model_SE_difference": 9.172928462977186e-15
+  },
+  "covariances": {
+    "quasi_pearson": "phi_hat * inverse(X' diag(mu_hat) X); phi_hat = Pearson sum((y-mu)^2/mu)/(n-p), no floor",
+    "hac28": "per-replicate fit_poisson_irls beta_covariance_last_hac from Bartlett HAC bandwidth 28",
+    "psd_rule": "symmetric eigendecomposition; accept min_eigenvalue >= -1e-10*max(1,max_abs_eigenvalue); clip only tolerated negative eigenvalues to zero for factorization"
+  },
+  "intervals": {
+    "normal_wald": "fitted A_hat +/- approved normal critical value times sqrt(g' V g)",
+    "linear_gaussian_mc": "5th/95th empirical percentiles of A_hat + g'(beta_draw-beta_hat)",
+    "exact_nonlinear_mc": "5th/95th empirical percentiles of sum(exp(offset+X beta_draw))-sum(exp(offset+Xcf beta_draw))",
+    "invalid_covariance_or_interval": "planned uncovered; no draws from materially indefinite covariance"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "analysis": "model-conditional daily attribution contrast",
+  "state_code": "35",
+  "period": [
+    "2015-01-01",
+    "2019-12-31"
+  ],
+  "outcome_window": [
+    "2015-01-22",
+    "2019-12-31"
+  ],
+  "n_calendar_days": 1826,
+  "n_outcome_days": 1805,
+  "cf_path": "same daily temperature path shifted by -1.0 C on every day",
+  "estimand": "sum_t [E(Y_t | factual temperature history) - E(Y_t | counterfactual temperature history)]",
+  "poisson_pseudo_likelihood": true,
+  "model_based_and_hac_intervals_are_approximate": true,
+  "no_exact_coverage_claim": true,
+  "design": {
+    "temperature_basis": "centered natural cubic spline with two columns; factual min/median/max knots; linear continuation outside boundaries",
+    "lag_basis": "three-column natural cubic cardinal basis over physical days 0 through 14; lag components are not physical lag blocks",
+    "time_spline": "centered natural cubic spline with 35 columns over 5 prespecified years (7 df/year)",
+    "weekday": "six centered day-of-week indicators",
+    "design_columns": 48,
+    "design_rank": 48,
+    "condition_number_unweighted_design": 6.8518015421262355,
+    "condition_number_weighted_information": 48.0929565287585
+  },
+  "fit": {
+    "family": "Poisson log-link",
+    "method": "line-searched Fisher scoring / IRLS",
+    "converged": true,
+    "convergence_reason": "step_tolerance",
+    "iterations": 4,
+    "max_abs_step": 4.845933376795841e-10,
+    "max_abs_score": 1.1097762708800474e-09,
+    "log_likelihood": -9176.236253761746,
+    "pearson_dispersion_diagnostic": 1.6769445995465548
+  },
+  "simulation_dgp": {
+    "model_compatible": "independent Poisson outcomes generated from the observed-data primary fitted marginal means",
+    "smooth_omitted_interaction": "adds the prespecified seasonal temperature-response term to the factual and counterfactual log means; its amplitude is a scenario setting, not an empirical error bound",
+    "correlated_overdispersed_ar1": {
+      "latent_process": "stationary Gaussian AR(1)",
+      "phi": 0.5,
+      "estimated_lognormal_sigma2": 0.0007755335449155232,
+      "variance_estimator": "max(log(1 + max(sum((y-mu)^2)-sum(mu), 0)/sum(mu^2)), 0)",
+      "marginal_mean_preserved": true
+    }
+  },
+  "intervals": [
+    {
+      "method": "model",
+      "A_hat_deaths": -2219.83121169714,
+      "standard_error": 1414.1677901877488,
+      "interval_level": 0.9,
+      "normal_critical_value": 1.6448536269514722,
+      "interval_lo": -4545.930230505407,
+      "interval_hi": 106.26780711112679,
+      "n_outcomes": 1805
+    },
+    {
+      "method": "hac14",
+      "A_hat_deaths": -2219.83121169714,
+      "standard_error": 2481.560607595491,
+      "interval_level": 0.9,
+      "normal_critical_value": 1.6448536269514722,
+      "interval_lo": -6301.635177600483,
+      "interval_hi": 1861.9727542062024,
+      "n_outcomes": 1805
+    },
+    {
+      "method": "hac28",
+      "A_hat_deaths": -2219.83121169714,
+      "standard_error": 2470.4034347698985,
+      "interval_level": 0.9,
+      "normal_critical_value": 1.6448536269514722,
+      "interval_lo": -6283.283261411782,
+      "interval_hi": 1843.6208380175021,
+      "n_outcomes": 1805
+    }
+  ],
+  "interpretation": "These estimates condition on this daily aggregate panel, the point temperature proxy, the stated spline model, and the fixed -1 C path."
+}

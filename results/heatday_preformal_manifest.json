@@ -1,0 +1,33 @@
+{
+  "study_id": "fixed_heatday_attribution_v1",
+  "protocol_status": "approved",
+  "created_utc": "2026-11-12T13:44:37.310863+00:00",
+  "config_sha256": "dfa449b76f7c2bb4d9227675633c0ce1078b207fe0cb95178f52d9183d3148b1",
+  "code_sha256": "5cd29145c16e0c8d7b28c3edbb542a467eb393be21045890d86f5921ad781d11",
+  "engine_sha256": "1456a153e217f0197ba72c16be22a13a1e5a77fba09b0a0999c3dc861a38ece6",
+  "core_hd_sha256": "e7cfae53bd5a57d8d85863ac52fce1fb320a2047c5db49129f13221f36a75f50",
+  "core_sim_sha256": "7dfdaa97e0387d4b01a826a7a998aa2e5b66824133499df9be91e1daac98c0ba",
+  "run_fail_hd_sha256": "8d7a37694233d237b0954e9ca0dc35dd979c630649a210965453a0fa4aabdc8d",
+  "core_fail_hd_sha256": "8a80449b0aec4972e7e44dd760b8229ea9936c1b367c7ffd488839c7a9cc9f76",
+  "pilot_artifacts": {
+    "pilot_summary": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_pilot_summary.csv",
+      "sha256": "e428b570f6c2e2f9f4859f1688e070d2ce4c0f23a663d76368b3e59611df2aef"
+    },
+    "pilot_calibration": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_pilot_calibration.csv",
+      "sha256": "3f02de95405f273a8babe5ff71faea67c7ccb8b0f6b94f626c1559aa745c2a0e"
+    },
+    "pilot_reproducibility": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_pilot_reproducibility.json",
+      "sha256": "82be5f90a3dad3da4f5fc86d5e210d563ed2be1c40acc37694e6612b675f1a5a"
+    },
+    "preformal_review": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/docs/heatday_preformal_review.md",
+      "sha256": "e0b434cc56344e8c5475e8a1b9dda441fa651125978a215e5bf84e762144e091"
+    }
+  },
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3"
+}

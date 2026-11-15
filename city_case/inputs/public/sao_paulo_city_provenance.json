@@ -1,0 +1,24 @@
+{
+  "source_file": "/data/admin/fengshuo/heat_emergency_surgery_20261106/01_data/interim/sim_muni_day.parquet",
+  "source_schema": "muni6: string\ndate: timestamp[ns]\nn_death_total: int32\nn_death_hosp: int32\nn_death_nonhosp: int32\nn_death_surg: int32\nn_death_noassist: int32\n-- schema metadata --\npandas: '{\"index_columns\": [], \"column_indexes\": [], \"columns\": [{\"name\":' + 941",
+  "source_aggregate_unit": "municipality-day counts",
+  "selected_municipality_code": "355030",
+  "geography": "São Paulo municipality",
+  "dates": [
+    "2015-01-01",
+    "2019-12-31"
+  ],
+  "rows": 1826,
+  "total_deaths": 385160,
+  "temperature_source_file": "/data/admin/fengshuo/conformal_attribution_20261107/incoming/bra_daily/bra_state_day.parquet",
+  "temperature_source_sha256": "fc972f919a5e5d51280a4093b4992d2b5ea7add6c51c2193b741d412825a42d3",
+  "temperature_point": {
+    "longitude": -46.6,
+    "latitude": -23.5
+  },
+  "output_file": "sao_paulo_city_day.parquet",
+  "sha256": "689fe1126554af294e632097b9a79981263912f65013f29686e41ff63926ce46",
+  "output_unit": "municipality-day",
+  "missing_values": 0,
+  "selection_rule": "Preselected municipality sharing the temperature reference city, with a complete pre-COVID five-year window."
+}

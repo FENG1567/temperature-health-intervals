@@ -1,0 +1,10 @@
+case,scenario,interval_method,method_1,method_2,n_planned_pairs,mean_paired_coverage_difference_quasi_minus_hac28,mcse_paired_coverage_difference,n_jointly_valid_width_pairs,mean_paired_width_difference_quasi_minus_hac28,mcse_paired_width_difference
+state,model_compatible,normal_wald,quasi_pearson,hac28,1000,0.059,0.007718716122424672,1000,525.5290303171355,13.02073370791103
+state,model_compatible,linear_gaussian_mc,quasi_pearson,hac28,1000,0.06,0.007775632479770407,1000,524.5404774445716,13.688999349490368
+state,model_compatible,exact_nonlinear_mc,quasi_pearson,hac28,1000,0.06,0.007775632479770407,1000,524.589879516282,13.689883279357836
+state,smooth_omitted_interaction,normal_wald,quasi_pearson,hac28,1000,-0.075,0.00880070749726705,1000,-666.3561501517592,17.339215355763674
+state,smooth_omitted_interaction,linear_gaussian_mc,quasi_pearson,hac28,1000,-0.08,0.00936417042175588,1000,-664.9069114277077,17.984016634241186
+state,smooth_omitted_interaction,exact_nonlinear_mc,quasi_pearson,hac28,1000,-0.081,0.009408906818941697,1000,-664.8657877469483,17.98327983392964
+state,correlated_overdispersed_ar1,normal_wald,quasi_pearson,hac28,1000,-0.055,0.007485387834376456,1000,-836.321963372749,21.950476055253056
+state,correlated_overdispersed_ar1,linear_gaussian_mc,quasi_pearson,hac28,1000,-0.055,0.007617941522027656,1000,-834.1938404635273,22.500188180793312
+state,correlated_overdispersed_ar1,exact_nonlinear_mc,quasi_pearson,hac28,1000,-0.055,0.007617941522027656,1000,-834.3227723915588,22.49665631207361

@@ -1,0 +1,125 @@
+{
+  "study_id": "fixed_design_attribution_v1",
+  "protocol_status": "draft_for_review",
+  "source": {
+    "original_path": "F:\\分析专用\\conformal_attribution_20261107\\simulation\\code\\core_sim.py",
+    "snapshot_path": "inputs/code_snapshot/core_sim.py",
+    "snapshot_sha256": "7DFDAA97E0387D4B01A826A7A998AA2E5B66824133499DF9BE91E1DAAC98C0BA",
+    "estimand_and_design_source": "core_sim.simulate, core_sim.build_X, core_sim.cf_X, core_sim.fit_glm"
+  },
+  "design": {
+    "n_c": 1,
+    "R": 12,
+    "T": 120,
+    "theta": 40.0,
+    "fixed_design_seeds": [
+      11501,
+      24799,
+      39119
+    ],
+    "scenarios": [
+      {
+        "id": 1,
+        "name": "model_compatible",
+        "description": "Exact conditional NB2 log-mean model in source build_X; fixed beta per design, with true mu and mu_cf generated from beta.",
+        "kind": "exact_model"
+      },
+      {
+        "id": 2,
+        "name": "response_misspecification",
+        "description": "Source nonlinear threshold response truth fit by the shared three-knot lag spline model; no additional omitted U term.",
+        "kind": "source_true_g"
+      },
+      {
+        "id": 3,
+        "name": "omitted_confounding",
+        "description": "Source misspec=True DGP: omitted time-varying U correlated with exposure contributes to the outcome mean and is held fixed under the counterfactual.",
+        "kind": "source_misspec"
+      }
+    ],
+    "counterfactual": "Use the fixed true counterfactual xcf_lag from the pinned source design for both the estimator and truth; bias=0. This isolates outcome-resampling uncertainty from estimated-Delta error.",
+    "positive_control_beta": "Per design and country, project log(source mu/pop) on source build_X by least squares, then regenerate fixed mu and mu_cf exactly from X beta and X_cf beta. Save beta and projection diagnostics.",
+    "truth": "For each fixed panel, A_true = sum(mu - mu_cf) over all regions and months; the same stored value is used for every outcome resample.",
+    "outcome_resampling": "For each replication, draw Y independently from NB2(theta, mean=fixed mu) without regenerating exposure, population, offset, knots, true coefficients, mu, or counterfactual arrays.",
+    "cluster_ids": {
+      "region": "region index 0..R-1",
+      "year": "month index // 12, repeated within region",
+      "intersection": "region × year"
+    }
+  },
+  "shared_additive_shift": 12345.678,
+  "sampling": {
+    "formal_reps_per_panel": {
+      "bias_train": 300,
+      "scale_calibration": 300,
+      "test": 1000
+    },
+    "pilot_reps_per_panel": {
+      "bias_train": 8,
+      "scale_calibration": 12,
+      "test": 20
+    },
+    "rep_seed_rule": "NumPy SeedSequence([base_seed, mode_id, scenario_id, design_seed, stage_id, replicate_index]); pilot and formal use distinct mode_id values.",
+    "mode_ids": {
+      "pilot": 71101,
+      "formal": 91103
+    },
+    "stage_ids": {
+      "bias_train": 101,
+      "scale_calibration": 202,
+      "test": 303
+    },
+    "base_seed": 20261112,
+    "alpha": 0.1,
+    "finite_sample_quantile": "k=ceil((n_cal+1)*(1-alpha)); return sort(scores)[k-1] when k<=n_cal and +infinity when k>n_cal; pilot calibration n=12 gives a finite 90% order statistic.",
+    "raw_exact_t_df": "min(number of region clusters, number of year clusters) - 1; for the full fit this is 9",
+    "raw_exact_t_quantile": "scipy.stats.t.ppf(1-alpha/2, df)",
+    "source_t_approximation": "Compare against pinned core_sim.tq(df), which uses a Cornish-Fisher approximation. Exact t critical values are primary."
+  },
+  "methods": {
+    "delta_primary": "A_hat ± exact_t_0.95(df) × h_component_CR1, where h_component_CR1 uses grouped region×year intersections and component-specific group-count CR1 corrections; raw covariance is not clipped.",
+    "delta_corrected_common_cr1_tw": "Grouped region×year intersection meat with the same common min-cluster CR1 multiplier and eigenvalue clipping as the legacy covariance; direct comparator isolating the intersection aggregation change.",
+    "delta_legacy_covariance": "Same estimate and exact t quantile, but source observation-level intersection subtraction X'U^2X, common min-cluster CR1 multiplier, and source eigenvalue clipping; diagnostic only.",
+    "delta_legacy_source": "Pinned source legacy covariance and core_sim.tq(df) approximation; source reproduction diagnostic only.",
+    "delta_independent_HC1_positive_control": "Independent-observation HC1 sandwich covariance with t_(n-p) interval; contextual positive-control benchmark under conditionally independent NB2 outcome draws.",
+    "delta_region_cr1_context": "One-way region-cluster CR1 covariance with region-cluster t critical value; contextual benchmark only.",
+    "raw_scale_calibrated": "Use an independent scale-calibration set to take the finite-sample 90th percentile of |A_hat-A_true|/h_corrected; test only on disjoint outcomes. The multiplier is unconditional within the fixed panel and incorporates bias.",
+    "bias_centered_split_calibrated": "Estimate mean bias on the separate bias_train set (truth is available in simulation), estimate a finite-sample score quantile on the disjoint scale_calibration set after centering, then evaluate on test. This is a simulation/known-truth validation diagnostic, not deployable without a labeled external calibration target.",
+    "year_split_q_diagnostic": "Source-style year split-half q on the first predeclared test reps only, using 30 random 5-of-10 year splits. Each half fit estimates every coefficient on its half, then predicts the attribution over the full fixed grid using all coefficients; split covariance gradients use that same full grid. The diagnostic reuses test outcomes and has no conformal guarantee.",
+    "shared_additive_shift": "Synthetic estimator-only common bias: add fixed c to A_hat in bias training, scale calibration, and test while keeping A_true fixed. The truth-trained center shifts by c and centered q is algebraically invariant; the raw interval exposes the uncorrected bias. A separate equivariance identity may translate both estimate and truth for a unit check."
+  },
+  "year_split_diagnostic": {
+    "enabled": true,
+    "formal_test_reps_per_panel": 25,
+    "pilot_test_reps_per_panel": 2,
+    "ksplit": 30,
+    "seed_offset": 404,
+    "years_per_half": 5
+  },
+  "fit": {
+    "max_iterations": 30,
+    "tolerance_max_abs_step": 1e-09,
+    "covariance": "Primary component-specific two-way CR1: corrected region meat + corrected year meat - corrected region×year grouped intersection meat; use per-component group count correction × (n-1)/(n-p). Keep raw symmetric covariance; do not eigenvalue-clip the corrected covariance.",
+    "common_cr1_comparator": "Use grouped region×year intersections and the same common min-cluster correction and PSD clipping policy as the source legacy covariance to isolate the intersection aggregation change.",
+    "legacy_covariance": "Pinned source observation-level intersection subtraction, common min-cluster correction, and eigenvalue clipping for comparison only.",
+    "method_validity": "Coefficient fit validity requires convergence, full design rank, and finite coefficients/estimate. Each method's interval additionally requires its own positive finite variance; failure of one covariance does not invalidate another method.",
+    "condition_warning_threshold": 10000000000.0,
+    "failed_interval_policy": "Count planned replicate as uncovered for coverage; preserve failure and convergence flags; widths are summarized only among finite valid intervals with valid_n reported."
+  },
+  "execution": {
+    "max_processes": 4,
+    "blas_threads_per_process": 1,
+    "formal_run_requires_protocol_status": "approved",
+    "pilot_allowed_while_draft": true,
+    "formal_run_blocked_until_parent_approval": true
+  },
+  "outputs": {
+    "design_artifact": "results/fixed_designs/fixed_design_{scenario}_seed{seed}.npz",
+    "panel_replications": "results/fixed_{mode}_panel_{scenario}_seed{seed}.csv",
+    "summary": "results/fixed_{mode}_summary.csv",
+    "calibration": "results/fixed_{mode}_calibration.csv",
+    "paired_differences": "results/fixed_{mode}_paired_differences.csv",
+    "reproducibility_log": "results/fixed_{mode}_reproducibility.json",
+    "preformal_pin": "results/fixed_preformal_manifest.json"
+  }
+}

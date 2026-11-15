@@ -1,0 +1,60 @@
+{
+  "generated_at_utc": "2026-11-12T11:55:49.334793+00:00",
+  "health_panel": {
+    "file": "inputs/public/bra_state_day.parquet",
+    "status": "legacy aggregate cache, transferred byte-for-byte from existing project storage",
+    "server_source_path": "/data/admin/fengshuo/conformal_attribution_20261107/incoming/bra_daily/bra_state_day.parquet",
+    "sha256": "fc972f919a5e5d51280a4093b4992d2b5ea7add6c51c2193b741d412825a42d3",
+    "bytes": 205543,
+    "derivation_note": "Existing acquisition script documents SIM municipality-day deaths summed to UF-day and joined to NASA POWER T2M. Source microdata was not opened by this retrieval task."
+  },
+  "temperature_reference": {
+    "path": "F:\\分析专用\\conformal_attribution_upgrade_20261112\\inputs\\public\\nasa_power_br_uf35_2015_daily.json",
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M&community=RE&longitude=-46.6&latitude=-23.5&start=20150101&end=20151231&format=JSON",
+    "retrieved_at_utc": "2026-11-12T11:35:57.557880+00:00",
+    "http_status": 200,
+    "content_type": "application/json",
+    "sha256": "3a2c26c11ffe8e9999e98c9c23f62086d6aa4e6da67069b5103ff08959d1c1c3",
+    "bytes": 6632,
+    "reused_existing_response": true,
+    "parameter": "T2M",
+    "units": "degrees Celsius",
+    "temporal_resolution": "daily",
+    "point": "UF 35 capital reference point, São Paulo",
+    "query_parameters": {
+      "parameters": "T2M",
+      "community": "RE",
+      "longitude": -46.6,
+      "latitude": -23.5,
+      "start": "20150101",
+      "end": "20151231",
+      "format": "JSON"
+    },
+    "official_documentation": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/"
+  },
+  "method_reference": {
+    "repository": "https://github.com/gasparrini/2015_gasparrini_Lancet_Rcodedata",
+    "commit": "7c3e03c425529d2f210b1659a01bbc582448b9c0",
+    "files": [
+      {
+        "file": "README.md",
+        "path": "inputs\\public\\method_reference\\gasparrini_2015\\README.md",
+        "source_url": "https://raw.githubusercontent.com/gasparrini/2015_gasparrini_Lancet_Rcodedata/7c3e03c425529d2f210b1659a01bbc582448b9c0/README.md",
+        "retrieval_url": null,
+        "sha256": "f60a3c001b51f9ea97b11f5d7e544db873a9e30bdf07ac06e241bcb03200652a",
+        "bytes": 1496,
+        "reused_existing_file": true
+      },
+      {
+        "file": "attrdl.R",
+        "path": "inputs\\public\\method_reference\\gasparrini_2015\\attrdl.R",
+        "source_url": "https://raw.githubusercontent.com/gasparrini/2015_gasparrini_Lancet_Rcodedata/7c3e03c425529d2f210b1659a01bbc582448b9c0/attrdl.R",
+        "retrieval_url": null,
+        "sha256": "d34c4c30aaa830b7bc1cb68d23a7bd2383e036b8419fdb183b8c4909a549d82d",
+        "bytes": 7411,
+        "reused_existing_file": true
+      }
+    ],
+    "note": "Small public README and attributable-risk helper are retained under inputs/public/method_reference; the repository has no LICENSE file."
+  }
+}

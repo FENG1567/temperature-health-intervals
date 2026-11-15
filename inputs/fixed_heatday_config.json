@@ -1,0 +1,94 @@
+{
+  "study_id": "fixed_heatday_attribution_v1",
+  "protocol_status": "approved",
+  "source": {
+    "original_code_root": "/data/admin/fengshuo/conformal_attribution_20261107/simulation/code",
+    "core_hd_snapshot_path": "inputs/heatday_snapshot/core_hd.py",
+    "core_hd_sha256": "e7cfae53bd5a57d8d85863ac52fce1fb320a2047c5db49129f13221f36a75f50",
+    "core_sim_snapshot_path": "inputs/heatday_snapshot/core_sim.py",
+    "core_sim_sha256": "7dfdaa97e0387d4b01a826a7a998aa2e5b66824133499df9be91e1daac98c0ba",
+    "run_fail_hd_snapshot_path": "inputs/heatday_snapshot/run_fail_hd.py",
+    "run_fail_hd_sha256": "8d7a37694233d237b0954e9ca0dc35dd979c630649a210965453a0fa4aabdc8d",
+    "core_fail_hd_snapshot_path": "inputs/heatday_snapshot/core_fail_hd.py",
+    "core_fail_hd_sha256": "8a80449b0aec4972e7e44dd760b8229ea9936c1b367c7ffd488839c7a9cc9f76",
+    "historical_scenario_source": "run_fail_hd.py BASE and G0/G7 scenario settings; core_hd.simulate_hd/build_X/cf_X"
+  },
+  "frozen_engine": {
+    "path": "code/fixed_heatday_engine.py",
+    "sha256": "1456a153e217f0197ba72c16be22a13a1e5a77fba09b0a0999c3dc861a38ece6",
+    "role": "Byte-identical copy of the fixed-design fit, covariance, calibration, interval and summary helpers; primary fixed_design.py remains unchanged."
+  },
+  "design": {
+    "n_c": 1,
+    "R": 12,
+    "T": 120,
+    "theta": 20.0,
+    "rate_lo": 3e-6,
+    "rate_hi": 8e-6,
+    "counterfactual_bias": 0.0,
+    "fixed_design_seeds": [11501, 24799, 39119],
+    "fixed_knots": [0.0, 3.0, 8.0],
+    "lags": ["H_t", "H_t_minus_1"],
+    "counterfactual": "Use Hcf from core_hd.simulate_hd with cfg.bias=0 for both estimator and truth; this fixes the H/Hcf exposure paths for each scenario design and avoids the estimated-counterfactual truth mutation when cfg.bias is nonzero. core_hd.common_bias changes eta0 for both factual and counterfactual means and may therefore change scenario-specific A_true.",
+    "truth": "For each scenario-specific fixed design, A_true=sum(mu-mucf) over all regions and months. The same scenario-specific truth is reused for every outcome resample within that design; it need not be equal across scenarios.",
+    "scenarios": [
+      {"id": 1, "name": "model_compatible", "kind": "exact_model", "common_bias": 0.0,
+       "description": "Project log(source mu/pop) on the two-lag heat-day design with fixed knots [0,3,8], then regenerate factual and counterfactual means exactly from the projected beta."},
+      {"id": 2, "name": "source_h_quadratic", "kind": "source_h_quadratic", "common_bias": 0.0,
+       "description": "Use the pinned heat-day source DGP g(H)=0.020H+0.0010H^2 with lag weights (0.6,0.4), without added common bias."},
+      {"id": 3, "name": "common_bias_0_12", "kind": "source_h_quadratic", "common_bias": 0.12,
+       "description": "Use the pinned heat-day quadratic DGP and core_hd.common_bias=0.12. The common bias changes eta0 for factual and counterfactual means, so A_true may differ from the zero-common-bias scenario; cfg.bias=0 keeps the H/Hcf exposure paths fixed."}
+    ]
+  },
+  "shared_additive_shift": 12345.678,
+  "sampling": {
+    "formal_reps_per_panel": {"bias_train": 300, "scale_calibration": 300, "test": 1000},
+    "pilot_reps_per_panel": {"bias_train": 8, "scale_calibration": 12, "test": 20},
+    "base_seed": 20261112,
+    "rep_seed_rule": "NumPy SeedSequence([base_seed, mode_id, scenario_id, design_seed, stage_id, replicate_index])",
+    "mode_ids": {"pilot": 72101, "formal": 92103},
+    "stage_ids": {"bias_train": 101, "scale_calibration": 202, "test": 303},
+    "alpha": 0.1,
+    "finite_sample_quantile": "k=ceil((n_cal+1)*(1-alpha)); return sorted_scores[k-1] when k<=n_cal and +infinity when k>n_cal.",
+    "primary_df": "min(region clusters, year clusters)-1"
+  },
+  "methods": {
+    "delta_primary": "Component-specific two-way CR1 using grouped region×year intersection meat; raw covariance is not clipped.",
+    "delta_corrected_common_cr1_tw": "Correct grouped intersection meat with the legacy common min-cluster correction and the same PSD clipping policy, to isolate the intersection aggregation change.",
+    "delta_legacy_covariance": "Pinned-source observation-level intersection subtraction with common min-cluster correction and PSD clipping.",
+    "independent_scale_calibrated": "Independent calibration outcomes estimate the finite-sample quantile of absolute error divided by corrected standard error.",
+    "truth_trained_bias_centered_split_calibrated": "Known-truth simulation diagnostic using disjoint bias-training, scale-calibration and test outcomes.",
+    "year_half_split_q_diagnostic": "30 random 5-of-10 year splits on the first two pilot / first 25 formal test outcomes; all coefficients are fit in each half and predictions/gradients use the full fixed grid. Diagnostic only, not an independent conformal guarantee.",
+    "estimator_only_common_bias": "Add the fixed common shift to estimates in all outcome stages while keeping A_true unchanged; truth-trained centering must restore the same q algebraically."
+  },
+  "year_split_diagnostic": {
+    "enabled": true,
+    "pilot_test_reps_per_panel": 2,
+    "formal_test_reps_per_panel": 25,
+    "ksplit": 30,
+    "years_per_half": 5,
+    "seed_offset": 404
+  },
+  "fit": {
+    "max_iterations": 30,
+    "tolerance_max_abs_step": 1e-9,
+    "condition_warning_threshold": 10000000000.0,
+    "method_validity": "Coefficient fit requires convergence, full rank and finite coefficients/estimate. Each method interval additionally requires its own positive finite variance.",
+    "failed_interval_policy": "Count planned replicate as uncovered; retain fit and variance diagnostics; summarize valid infinite widths as infinite."
+  },
+  "execution": {
+    "max_processes": 4,
+    "blas_threads_per_process": 1,
+    "formal_run_requires_protocol_status": "approved",
+    "formal_run_requires_preformal_hash_pin": true
+  },
+  "outputs": {
+    "design_artifact": "results/heatday_designs/heatday_design_{scenario}_seed{seed}.npz",
+    "panel_replications": "results/heatday_{mode}_panel_{scenario}_seed{seed}.csv",
+    "summary": "results/heatday_{mode}_summary.csv",
+    "calibration": "results/heatday_{mode}_calibration.csv",
+    "paired_differences": "results/heatday_{mode}_paired_differences.csv",
+    "reproducibility_log": "results/heatday_{mode}_reproducibility.json",
+    "preformal_pin": "results/heatday_preformal_manifest.json"
+  }
+}

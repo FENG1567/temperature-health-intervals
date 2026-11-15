@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Please cite this software and the accompanying manuscript when using these analyses."
+title: "Interval Coverage and Sensitivity Bounds for Temperature–Health Contrasts With Applications to Cholecystectomy Records and All-Cause Mortality"
+type: software
+version: 0.1.1
+date-released: 2026-11-15
+repository-code: "https://github.com/FENG1567/temperature-health-intervals"
+url: "https://github.com/FENG1567/temperature-health-intervals"
+license: MIT
+authors:
+  - family-names: Feng
+    given-names: Shuo
+  - family-names: Shi
+    given-names: Chao
+  - family-names: Liu
+    given-names: Tianming
+  - family-names: Ding
+    given-names: Haoran
+  - family-names: Hang
+    given-names: Fenghe
+  - family-names: Huang
+    given-names: Zhenghao
+  - family-names: Meng
+    given-names: Xianzhi
+    email: mengxianzhi@hrbmu.edu.cn
+keywords:
+  - attribution intervals
+  - distributed lag models
+  - simulation
+  - sensitivity analysis

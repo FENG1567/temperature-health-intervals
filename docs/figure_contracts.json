@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "backend": "Python / matplotlib",
+  "target_style": "Environmental Health revision; double-column quantitative figures",
+  "export_contract": {
+    "width_mm": 183,
+    "height_mm": "figure-specific; see exported PDF page sizes",
+    "formats": [
+      "PDF",
+      "SVG",
+      "PNG",
+      "TIFF"
+    ],
+    "png_dpi": 300,
+    "pdf_fonttype": 42,
+    "editable_text": true,
+    "font": [
+      "Arial",
+      "DejaVu Sans"
+    ],
+    "palette": "colorblind-safe blue, orange and gray",
+    "tiff_dpi": 600,
+    "tiff_mode": "RGB",
+    "tiff_compression": "LZW",
+    "panel_labels": "Uppercase Arial Bold,18pt",
+    "text_weight": "bold"
+  },
+  "shared_target_definition": "For count-scale target panels, A denotes the expected count contrast: factual path minus the 1°C cooler counterfactual path. Do not call this disease burden or incidence.",
+  "figures": {
+    "figure_1_fixed_design": {
+      "status": "rendered and visually checked",
+      "source_figure": "fixed-design interval coverage and error scale",
+      "core_conclusion": "Across the three predeclared fixed-design scenarios and three fixed seeds, interval coverage and reported error scale vary by covariance method; all methods remain visible, including the under-covering and ineffective comparisons.",
+      "archetype": "quantitative grid",
+      "panel_map": {
+        "A-C": "Planned-denominator coverage across model-compatible, response-misspecification and omitted-confounding scenarios; one panel per scenario, three seeds and five covariance methods.",
+        "D-F": "Mean method-specific SE and empirical sample SD of estimation error for the same scenario/seed/method cells."
+      },
+      "methods": [
+        "Legacy covariance",
+        "Corrected common CR1 two-way",
+        "Corrected component-specific two-way",
+        "HC1",
+        "Region CR1"
+      ],
+      "n_definition": "Each point uses 1,000 planned test repetitions for one design seed and scenario. Fit failures and method-specific invalid intervals count as uncovered. Three fixed seeds and all 45 method × scenario × seed rows are shown.",
+      "uncertainty_definition": "Coverage whiskers are ±1 binomial MCSE using the planned denominator. Open circles show arithmetic mean positive finite method SE among coefficient-fit successes with valid method variance; exact per-point n is n_mean_standard_error. Filled squares show sample SD (ddof=1) of A_hat − A_true among coefficient-fit successes; exact per-point n is n_empirical_error_sd.",
+      "source_data": "Frozen formal fixed-design summary and per-replicate panel rows; plotted source table and row hashes are in QA.",
+      "reviewer_risks": [
+        "Do not use pilot results.",
+        "Keep failures and invalid intervals in the planned coverage denominator.",
+        "Mean-SE and empirical-SD denominators differ and are labeled separately."
+      ]
+    },
+    "figure_2_heatday_fixed_design": {
+      "status": "rendered and visually checked",
+      "source_figure": "heat-day fixed-design interval coverage and error scale",
+      "core_conclusion": "Across model-compatible and source-quadratic designs, the component-specific two-way CR1 interval has lower coverage than the legacy and corrected-common intervals; coverage varies by method in the common-bias design, whose scenario-specific truth changes.",
+      "archetype": "quantitative grid",
+      "panel_map": {
+        "A-C": "Planned-denominator coverage for model-compatible, source-quadratic and quadratic plus shared temporal term scenarios; three fixed seeds and five covariance methods per scenario.",
+        "D-F": "Mean method-specific SE and empirical sample SD of A_hat − A_true for those same scenario/seed/method cells."
+      },
+      "methods": [
+        "Legacy covariance",
+        "Corrected common CR1 two-way",
+        "Corrected component-specific two-way",
+        "HC1",
+        "Region CR1"
+      ],
+      "n_definition": "Each point uses 1,000 planned test-stage repetitions for one scenario and seed. Three fixed seeds are shown in each of three scenarios. Training and calibration stages are excluded from test summaries.",
+      "uncertainty_definition": "Coverage whiskers are ±1 binomial MCSE using the planned denominator. Mean SE uses valid positive finite method-specific SEs; exact per-point denominator is n_mean_standard_error. Empirical error SD is sample SD (ddof=1) among coefficient-fit successes; exact per-point denominator is n_empirical_error_sd.",
+      "target_semantics": "A_true is the expected count contrast sum(mu − mu_cf) for each fixed design. Cholecystectomy labels refer to hospital admission/discharge records; death labels refer to all-cause registered deaths where applicable.",
+      "reviewer_risks": [
+        "The common-bias design has its own scenario-specific A_true; do not treat it as a same-truth comparison.",
+        "Keep fit failures and invalid intervals in coverage denominator.",
+        "Do not call the target disease burden or incidence."
+      ],
+      "scenario_definition": "The common-bias heat-day DGP adds the shared temporal term 0.12 z; the source scenario and its frozen results are preserved."
+    },
+    "figure_3_observed_and_formal": {
+      "status": "rendered and visually checked",
+      "source_figure": "observed specification sensitivity and formal interval coverage",
+      "core_conclusion": "Observed daily estimates and known-truth repeated-sampling coverage answer different questions; each case retains the full nine-specification observed grid and all three formal scenarios across Poisson, HAC14, HAC28 and Quasi-Poisson.",
+      "archetype": "quantitative grid",
+      "panel_map": {
+        "A,C": "Observed expected-count contrasts and nominal 90% intervals over the nine predeclared specifications for the state and city-matched cases.",
+        "B,D": "Formal planned-denominator coverage in the compatible, omitted seasonal interaction and correlated-overdispersed AR(1) scenarios for both cases."
+      },
+      "methods": {
+        "observed": [
+          "Poisson",
+          "HAC14",
+          "HAC28"
+        ],
+        "formal": [
+          "Poisson",
+          "HAC14",
+          "HAC28",
+          "Pearson-scaled Quasi-Poisson"
+        ]
+      },
+      "n_definition": "Observed panels use 1,805 daily outcomes per specification. Formal coverage uses 1,000 planned replications per case and scenario; failed fits count as uncovered.",
+      "uncertainty_definition": "Observed intervals are nominal 90% source intervals. Formal whiskers are ±1 binomial MCSE.",
+      "target_semantics": "Observed estimates are expected count contrasts: factual path minus 1°C cooler path.",
+      "reviewer_risks": [
+        "Do not infer causal identification from model-based observed-data intervals.",
+        "Keep observed estimates separate from known-truth empirical coverage.",
+        "The omitted seasonal interaction scenario is distinct from the shared 0.12 z heat-day term."
+      ]
+    },
+    "figure_4_mechanism_diagnostic": {
+      "status": "rendered and visually checked",
+      "source_figure": "ancillary known-truth mechanism diagnostics",
+      "core_conclusion": "The known-truth diagnostic separates deterministic projection bias, finite-sample mean error and error-scale mismatch under compatible, omitted seasonal interaction and correlated AR(1) scenarios; oracle benchmarks are explanatory controls.",
+      "archetype": "quantitative grid",
+      "panel_map": {
+        "A,D": "Deterministic projection bias and empirical mean error with ±1 MCSE, for state and city cases.",
+        "B,E": "Mean reported SE divided by empirical error SD for Poisson, Quasi-Poisson, HAC14, HAC28 and the linearized known-process oracle.",
+        "C,F": "Coverage of oracle-scale and oracle-scale plus known-bias centering benchmarks."
+      },
+      "n_definition": "Each case and scenario uses 1,000 planned and converged formal replications.",
+      "scenario_definition": "The omitted seasonal interaction is the daily-data mechanism scenario; do not label it as the shared 0.12 z heat-day term.",
+      "reviewer_risks": [
+        "Ancillary diagnostic, not a new applied method comparison.",
+        "Oracle scale and known-bias centering are controls, not deployable procedures.",
+        "Overlap of Monte Carlo bars with 0.90 is not evidence that coverage equals nominal."
+      ]
+    },
+    "figure_S1_lagweight_delta": {
+      "status": "rendered and visually checked",
+      "source_figure": "monthly sensitivity radius across lag allocations and delta",
+      "core_conclusion": "The complete 4-panel × 5-allocation × 4-delta finite-grid display compares each deterministic sensitivity radius with its stored base 90% interval half-width.",
+      "archetype": "quantitative grid",
+      "panel_map": {
+        "A": "BRA cholecystectomy admission authorisations.",
+        "B": "MEX cholecystectomy discharges.",
+        "C": "SIM all-cause registered deaths.",
+        "D": "MEXD all-cause registered deaths."
+      },
+      "axis_definitions": {
+        "x": "Predeclared delta on the log-risk perturbation scale: 0.01, 0.025, 0.05 and 0.10.",
+        "y": "Lag allocation weights in lag 0 / lag 1 order: (1.00, 0.00), (0.75, 0.25), (0.50, 0.50), (0.25, 0.75) and (0.00, 1.00).",
+        "fill": "Sensitivity radius divided by stored base 90% interval half-width; dimensionless."
+      },
+      "n_definition": "All 80 rows are shown: four panels × five lag allocations × four delta values.",
+      "uncertainty_definition": "The tile values are deterministic finite-grid sensitivity ratios, not sampling uncertainty or empirical coverage.",
+      "source_data": "Source table, plotted values and parsed-row SHA-256 hashes are recorded in qa/figure_sources_sensitivity_grid.csv and .json.",
+      "reviewer_risks": [
+        "Retain all 80 panel × lag-allocation × delta combinations.",
+        "Describe the class as finite observed-grid and fixed allocation; do not imply a continuous-temperature certificate.",
+        "Do not call the ratios sampling coverage, disease burden, or incidence."
+      ]
+    },
+    "figure_S2_deterministic_displacement": {
+      "status": "rendered and visually checked",
+      "source_figure": "within-class bound checks and out-of-class zero-sum lag-transfer displacement",
+      "core_conclusion": "All 16 fixed-allocation within-class checks remain below their stored deterministic class envelope; the 24 out-of-class zero-sum lag-transfer checks are shown only for scale comparison.",
+      "archetype": "quantitative diagnostic",
+      "panel_map": {
+        "A": "Maximum exact expected-count contrast shift divided by the stored uniform bound, across four outcomes and four delta values at fixed 0.50 / 0.50 lag allocation.",
+        "B": "Absolute exact expected-count contrast shift relative to the delta=0.05 fixed-allocation envelope, plotted against maximum row log-predictor shift for 24 out-of-class zero-sum lag transfers."
+      },
+      "n_definition": "Panel a contains 16 panel × delta checks, each summarizing 272 deterministic candidates (four polygon vertices, 12 edge-convex combinations and 256 predeclared radial directions). Panel b contains 24 deterministic out-of-class checks.",
+      "uncertainty_definition": "Both panels display deterministic calculations with no sampling uncertainty, Monte Carlo error, or empirical coverage estimate.",
+      "target_semantics": "Displacement is on the expected count contrast scale: factual path minus the 1°C cooler counterfactual path.",
+      "out_of_class_interpretation": "The zero-sum lag transfer is outside the fixed-allocation class. Its ratio to the delta=0.05 envelope is a descriptive scale comparison only and does not establish a bound for the out-of-class perturbation.",
+      "source_data": "Input tables, plotted rows and parsed-row SHA-256 hashes are recorded in qa/figure_sources_sensitivity_displacement.csv and .json.",
+      "reviewer_risks": [
+        "Do not label either panel sampling coverage or interval coverage.",
+        "Do not imply that an out-of-class transfer is covered or guaranteed by the fixed-allocation envelope, even when its comparison ratio is below one.",
+        "Report the fixed allocation, candidate counts, and expected-count contrast scale."
+      ]
+    },
+    "figure_6_monthly_sensitivity": {
+      "status": "rendered and visually checked",
+      "source_figure": "monthly expected-count contrast sensitivity bounds",
+      "core_conclusion": "At the predeclared δ=0.05, the expanded interval excludes zero only for SIM on the negative side; the other three observed monthly panels include zero.",
+      "archetype": "quantitative grid",
+      "panel_map": {
+        "A": "BRA cholecystectomy admission authorisations.",
+        "B": "MEX cholecystectomy discharges.",
+        "C": "SIM all-cause registered deaths.",
+        "D": "MEXD all-cause registered deaths."
+      },
+      "sensitivity_contract": "Complete predeclared δ grid {0.01, 0.025, 0.05, 0.10}; fixed lag allocation weights (0.5, 0.5); finite observed factual/counterfactual basis grid only.",
+      "axis": "Expected count contrast: factual minus the 1°C cooler path.",
+      "n_definition": "Retained region-month rows are BRA 3,213; MEX 3,808; SIM 1,917; MEXD 3,808.",
+      "uncertainty_definition": "Vertical intervals are approximate base 90% model intervals expanded by deterministic finite-grid sensitivity radii. They are not empirical coverage intervals or Monte Carlo intervals.",
+      "reviewer_risks": [
+        "Do not claim a continuous-temperature certificate.",
+        "Do not imply causal identification.",
+        "Do not call the outcome disease burden or incidence."
+      ]
+    },
+    "figure_5_daily_mvn": {
+      "status": "rendered and visually checked",
+      "core_conclusion": "Compare daily normal-Wald, linear-Gaussian and valid-MVN-exact procedures using only final formal analysis results.",
+      "archetype": "quantitative comparison",
+      "panel_map": {
+        "A": "State, model-compatible scenario",
+        "B": "State, omitted seasonal interaction",
+        "C": "State, correlated overdispersed AR(1)",
+        "D": "Municipality, model-compatible scenario",
+        "E": "Municipality, omitted seasonal interaction",
+        "F": "Municipality, correlated overdispersed AR(1)"
+      },
+      "methods": [
+        "normal-Wald",
+        "linear-Gaussian",
+        "MVN-exact, PSD-valid V only"
+      ],
+      "reviewer_risks": [
+        "Use actual source columns and paired-denominator definitions.",
+        "Do not imply methods were comparable when MVN V failed PSD validity."
+      ]
+    }
+  }
+}

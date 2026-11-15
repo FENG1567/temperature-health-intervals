@@ -1,0 +1,323 @@
+{
+  "study_id": "fixed_heatday_attribution_v1",
+  "mode": "formal",
+  "mode_id": 92103,
+  "config_sha256": "dfa449b76f7c2bb4d9227675633c0ce1078b207fe0cb95178f52d9183d3148b1",
+  "adapter_sha256": "5cd29145c16e0c8d7b28c3edbb542a467eb393be21045890d86f5921ad781d11",
+  "preformal_manifest_sha256": "d84b4ae262de69072974d44b4f4d3ecb60fd3dfcebfee9c8b745a474b254654a",
+  "engine_sha256": "1456a153e217f0197ba72c16be22a13a1e5a77fba09b0a0999c3dc861a38ece6",
+  "source_hashes": {
+    "core_hd_sha256": "e7cfae53bd5a57d8d85863ac52fce1fb320a2047c5db49129f13221f36a75f50",
+    "core_sim_sha256": "7dfdaa97e0387d4b01a826a7a998aa2e5b66824133499df9be91e1daac98c0ba",
+    "run_fail_hd_sha256": "8d7a37694233d237b0954e9ca0dc35dd979c630649a210965453a0fa4aabdc8d",
+    "core_fail_hd_sha256": "8a80449b0aec4972e7e44dd760b8229ea9936c1b367c7ffd488839c7a9cc9f76"
+  },
+  "panel_count": 9,
+  "replication_rows": 14400,
+  "rows_per_panel": 1600,
+  "all_fits_converged": true,
+  "fit_failures": 0,
+  "nonconverged_fits": 0,
+  "condition_warnings": 0,
+  "truth_constant_within_each_panel": true,
+  "truth_matches_pilot_by_scenario_and_seed": true,
+  "same_exposure_H_Hcf_across_scenarios_by_seed": true,
+  "exposure_comparison_pairs": 9,
+  "positive_control_panels": 3,
+  "positive_control_beta_max_abs_error": 1.5631940186722204e-13,
+  "positive_control_mu_max_abs_error": 4.888534022029489e-12,
+  "yearhalf_splits_requested": 6750,
+  "yearhalf_splits_valid": 6008,
+  "yearhalf_splits_failed": 742,
+  "max_abs_centered_q_difference": 1.4210854715202004e-14,
+  "max_abs_centered_score_change": 5.3185938950665993e-14,
+  "max_abs_centered_estimator_change": 1.8189894035458565e-12,
+  "max_abs_estimator_additive_shift_equivariance_error": 1.7053025658242404e-12,
+  "method_interval_invalid_after_fit_by_method": {
+    "delta_corrected_common_cr1_tw": 0,
+    "delta_corrected_cr1_tw": 338,
+    "delta_independent_HC1_positive_control": 0,
+    "delta_legacy_covariance": 0,
+    "delta_pinned_source": 0,
+    "delta_region_cr1_context": 0,
+    "estimator_only_common_bias": 338,
+    "estimator_only_common_bias_bias_centered": 338,
+    "independent_scale_calibrated": 338,
+    "truth_trained_bias_centered_split_calibrated": 338,
+    "year_half_split_q_diagnostic": 5
+  },
+  "coverage_by_scenario_and_method": {
+    "common_bias_0_12": {
+      "delta_corrected_common_cr1_tw": {
+        "n_planned": 3000,
+        "covered": 1431,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.477
+      },
+      "delta_corrected_cr1_tw": {
+        "n_planned": 3000,
+        "covered": 627,
+        "n_interval_valid": 2905,
+        "n_width_finite": 2905,
+        "n_width_infinite": 0,
+        "coverage": 0.209
+      },
+      "delta_independent_HC1_positive_control": {
+        "n_planned": 3000,
+        "covered": 437,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.14566666666666667
+      },
+      "delta_legacy_covariance": {
+        "n_planned": 3000,
+        "covered": 1572,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.524
+      },
+      "delta_pinned_source": {
+        "n_planned": 3000,
+        "covered": 1571,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.5236666666666666
+      },
+      "delta_region_cr1_context": {
+        "n_planned": 3000,
+        "covered": 485,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.16166666666666665
+      },
+      "estimator_only_common_bias": {
+        "n_planned": 3000,
+        "covered": 0,
+        "n_interval_valid": 2905,
+        "n_width_finite": 2905,
+        "n_width_infinite": 0,
+        "coverage": 0.0
+      },
+      "estimator_only_common_bias_bias_centered": {
+        "n_planned": 3000,
+        "covered": 2607,
+        "n_interval_valid": 2905,
+        "n_width_finite": 2905,
+        "n_width_infinite": 0,
+        "coverage": 0.869
+      },
+      "independent_scale_calibrated": {
+        "n_planned": 3000,
+        "covered": 2613,
+        "n_interval_valid": 2905,
+        "n_width_finite": 2905,
+        "n_width_infinite": 0,
+        "coverage": 0.871
+      },
+      "truth_trained_bias_centered_split_calibrated": {
+        "n_planned": 3000,
+        "covered": 2607,
+        "n_interval_valid": 2905,
+        "n_width_finite": 2905,
+        "n_width_infinite": 0,
+        "coverage": 0.869
+      },
+      "year_half_split_q_diagnostic": {
+        "n_planned": 75,
+        "covered": 26,
+        "n_interval_valid": 72,
+        "n_width_finite": 72,
+        "n_width_infinite": 0,
+        "coverage": 0.3466666666666667
+      }
+    },
+    "model_compatible": {
+      "delta_corrected_common_cr1_tw": {
+        "n_planned": 3000,
+        "covered": 2888,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.9626666666666667
+      },
+      "delta_corrected_cr1_tw": {
+        "n_planned": 3000,
+        "covered": 2486,
+        "n_interval_valid": 2877,
+        "n_width_finite": 2877,
+        "n_width_infinite": 0,
+        "coverage": 0.8286666666666667
+      },
+      "delta_independent_HC1_positive_control": {
+        "n_planned": 3000,
+        "covered": 2687,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.8956666666666667
+      },
+      "delta_legacy_covariance": {
+        "n_planned": 3000,
+        "covered": 2895,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.965
+      },
+      "delta_pinned_source": {
+        "n_planned": 3000,
+        "covered": 2895,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.965
+      },
+      "delta_region_cr1_context": {
+        "n_planned": 3000,
+        "covered": 2584,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.8613333333333333
+      },
+      "estimator_only_common_bias": {
+        "n_planned": 3000,
+        "covered": 0,
+        "n_interval_valid": 2877,
+        "n_width_finite": 2877,
+        "n_width_infinite": 0,
+        "coverage": 0.0
+      },
+      "estimator_only_common_bias_bias_centered": {
+        "n_planned": 3000,
+        "covered": 2606,
+        "n_interval_valid": 2877,
+        "n_width_finite": 2877,
+        "n_width_infinite": 0,
+        "coverage": 0.8686666666666667
+      },
+      "independent_scale_calibrated": {
+        "n_planned": 3000,
+        "covered": 2611,
+        "n_interval_valid": 2877,
+        "n_width_finite": 2877,
+        "n_width_infinite": 0,
+        "coverage": 0.8703333333333333
+      },
+      "truth_trained_bias_centered_split_calibrated": {
+        "n_planned": 3000,
+        "covered": 2606,
+        "n_interval_valid": 2877,
+        "n_width_finite": 2877,
+        "n_width_infinite": 0,
+        "coverage": 0.8686666666666667
+      },
+      "year_half_split_q_diagnostic": {
+        "n_planned": 75,
+        "covered": 70,
+        "n_interval_valid": 75,
+        "n_width_finite": 75,
+        "n_width_infinite": 0,
+        "coverage": 0.9333333333333333
+      }
+    },
+    "source_h_quadratic": {
+      "delta_corrected_common_cr1_tw": {
+        "n_planned": 3000,
+        "covered": 2888,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.9626666666666667
+      },
+      "delta_corrected_cr1_tw": {
+        "n_planned": 3000,
+        "covered": 2484,
+        "n_interval_valid": 2880,
+        "n_width_finite": 2880,
+        "n_width_infinite": 0,
+        "coverage": 0.828
+      },
+      "delta_independent_HC1_positive_control": {
+        "n_planned": 3000,
+        "covered": 2663,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.8876666666666667
+      },
+      "delta_legacy_covariance": {
+        "n_planned": 3000,
+        "covered": 2902,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.9673333333333334
+      },
+      "delta_pinned_source": {
+        "n_planned": 3000,
+        "covered": 2902,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.9673333333333334
+      },
+      "delta_region_cr1_context": {
+        "n_planned": 3000,
+        "covered": 2616,
+        "n_interval_valid": 3000,
+        "n_width_finite": 3000,
+        "n_width_infinite": 0,
+        "coverage": 0.872
+      },
+      "estimator_only_common_bias": {
+        "n_planned": 3000,
+        "covered": 0,
+        "n_interval_valid": 2880,
+        "n_width_finite": 2880,
+        "n_width_infinite": 0,
+        "coverage": 0.0
+      },
+      "estimator_only_common_bias_bias_centered": {
+        "n_planned": 3000,
+        "covered": 2642,
+        "n_interval_valid": 2880,
+        "n_width_finite": 2880,
+        "n_width_infinite": 0,
+        "coverage": 0.8806666666666667
+      },
+      "independent_scale_calibrated": {
+        "n_planned": 3000,
+        "covered": 2639,
+        "n_interval_valid": 2880,
+        "n_width_finite": 2880,
+        "n_width_infinite": 0,
+        "coverage": 0.8796666666666667
+      },
+      "truth_trained_bias_centered_split_calibrated": {
+        "n_planned": 3000,
+        "covered": 2642,
+        "n_interval_valid": 2880,
+        "n_width_finite": 2880,
+        "n_width_infinite": 0,
+        "coverage": 0.8806666666666667
+      },
+      "year_half_split_q_diagnostic": {
+        "n_planned": 75,
+        "covered": 62,
+        "n_interval_valid": 73,
+        "n_width_finite": 73,
+        "n_width_infinite": 0,
+        "coverage": 0.8266666666666667
+      }
+    }
+  },
+  "summary_rows": 99,
+  "formal_reproducibility_sha256": "30cded97f150498feb8dae35b78a751328ea6887cc9afc53b0ec50b7f3c001ea"
+}

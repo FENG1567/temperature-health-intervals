@@ -1,0 +1,55 @@
+{
+  "case": "city",
+  "case_id": "real_daily_city_355030_v1",
+  "mode": "formal_quasi_baseline_replay",
+  "started_utc": "2026-11-12T13:17:26.775002+00:00",
+  "elapsed_seconds": 18.071874117013067,
+  "project_root": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/city_case",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "pandas": "2.2.3",
+  "workers": 4,
+  "blas_threads_per_worker": 1,
+  "input_sha256": "689fe1126554af294e632097b9a79981263912f65013f29686e41ff63926ce46",
+  "approved_config_sha256": "d70eca3168f8103d21c40487ddbb324f3db3aa26f978353c44c859d9278c508f",
+  "engine_code_sha256": "e7d0a37eabeb04734e5e097943183ec9289eda18db93422122a2b7299b3f67f0",
+  "quasi_script_sha256": "5eebb2b93d9de7728e7b942c60e4bf0fe38f777e17a4dfde92f0d3f83c6c3a88",
+  "formal_reproducibility_sha256": "6c119c89beb64ba8792b10cda465ee782907dd148db36d45ddf345ae8091cee1",
+  "seed_replay": {
+    "seed_rule": "NumPy SeedSequence([base_seed, formal_mode_id, scenario_seed_id, replicate_index])",
+    "seed_entropy_matched_formal_csv": true,
+    "unique_replayed_outcome_hashes": 3000,
+    "planned_replicates": 3000,
+    "all_replay_A_hat_and_model_SE_match_within_relative_1e_8": true,
+    "max_relative_A_hat_difference": 2.519220336992284e-16,
+    "max_relative_model_SE_difference": 0.0
+  },
+  "quasi_poisson": {
+    "dispersion": "phi_hat = sum((y - mu_hat)^2 / mu_hat) / (n - p)",
+    "scale_floor": false,
+    "standard_error": "sqrt(phi_hat) * original Poisson information-based SE(A)",
+    "interval": "two-sided normal Wald interval at the approved alpha",
+    "observed_data_diagnostic": {
+      "phi_hat_observed": 1.3138813810626295,
+      "A_hat": -1828.588060231432,
+      "se_model": 722.766046650378,
+      "se_quasi": 828.4681592106248,
+      "normal_critical_value": 1.6448536269514722,
+      "interval_level": 0.9,
+      "interval": [
+        -3191.296916722838,
+        -465.87920374002624
+      ],
+      "status": "post-hoc quasi-Poisson scale diagnostic; primary observed model output remains frozen"
+    }
+  },
+  "all_mechanical_checks_pass": true,
+  "outputs": [
+    "results/quasi_formal_replications.csv",
+    "results/quasi_formal_summary.csv",
+    "results/quasi_formal_paired_differences.csv"
+  ],
+  "interpretation": "Exploratory quasi-Poisson baseline added after the original formal summary; original primary Poisson/HAC files were not modified. This rescaling is not a finite-sample coverage theorem."
+}

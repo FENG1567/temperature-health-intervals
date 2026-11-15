@@ -1,0 +1,135 @@
+{
+  "study_id": "real_daily_panel_audit_v1",
+  "case_id": "real_daily_city_355030_v1",
+  "protocol_status": "approved",
+  "source": {
+    "aggregate_panel": "inputs/public/sao_paulo_city_day.parquet",
+    "aggregate_sha256": "689fe1126554af294e632097b9a79981263912f65013f29686e41ff63926ce46",
+    "provenance": "inputs/public/sao_paulo_city_provenance.json",
+    "data_qc": "inputs/public/sao_paulo_city_provenance.json",
+    "fresh_temperature_reference": "inputs/public/nasa_power_sao_paulo_2015_2019.json",
+    "fresh_temperature_comparison": "inputs/public/temperature_full_series_comparison.json",
+    "method_reference": "https://github.com/gasparrini/2015_gasparrini_Lancet_Rcodedata",
+    "method_reference_commit": "7c3e03c425529d2f210b1659a01bbc582448b9c0"
+  },
+  "design": {
+    "state_code": "355030",
+    "state_name": "São Paulo municipality (IBGE 355030)",
+    "start_year": 2015,
+    "end_year": 2019,
+    "study_years": 5,
+    "primary_max_lag": 14,
+    "lag_basis_dimension": 3,
+    "primary_time_df_per_year": 7,
+    "common_trim_days": 21,
+    "weekday_adjustment": "six indicators with Monday as reference",
+    "temperature_basis": {
+      "family": "natural cubic spline",
+      "df": 2,
+      "knots": "factual temperature minimum, median, and maximum",
+      "extrapolation": "linear continuation beyond boundary knots"
+    },
+    "lag_basis": {
+      "family": "natural cubic cardinal spline",
+      "dimension": 3,
+      "knots": "equally spaced from day 0 to the maximum lag",
+      "meaning": "smooth basis over discrete physical lag days; design coefficient groups are basis components, not individual lag days"
+    }
+  },
+  "estimand": {
+    "description": "Sum over outcome dates of model expected deaths under the observed temperature history minus expected deaths under the same full daily temperature path shifted down by 1 C.",
+    "counterfactual_shift_c": 1.0,
+    "shared_outcome_window": "2015-01-22 through 2019-12-31; first 21 outcome dates removed for every lag and time-spline specification",
+    "interpretation": "Conditional model contrast for this aggregate panel and the fixed path; not by itself a causal or climate-attribution estimate."
+  },
+  "fit": {
+    "family": "Poisson log-link pseudo-likelihood",
+    "algorithm": "line-searched Fisher scoring / IRLS with weighted least-squares updates",
+    "max_iterations": 100,
+    "tolerance_max_abs_step": 1e-8,
+    "design_scaling": "center each non-intercept column on factual design rows and scale to unit root-mean-square; apply same transforms to counterfactual design",
+    "failed_replicates": "count as uncovered in planned-replication coverage; also report converged-only coverage"
+  },
+  "inference": {
+    "alpha": 0.1,
+    "hac_bandwidths": [14, 28],
+    "interval": "two-sided normal Wald interval",
+    "covariance": [
+      "model-based Poisson information covariance",
+      "daily score HAC with Bartlett kernel and bandwidth 14 days",
+      "daily score HAC with Bartlett kernel and bandwidth 28 days"
+    ],
+    "coverage_claim": "No exact finite-sample coverage guarantee is claimed for the model or HAC intervals."
+  },
+  "sensitivity": {
+    "time_df_per_year": [6, 8],
+    "max_lag_days": [7, 14, 21],
+    "common_trim_days": 21,
+    "same_estimand_and_counterfactual": true,
+    "factorial_grid": true
+  },
+  "simulation": {
+    "design": "One fixed observed daily exposure, calendar, and counterfactual design; condition on the observed-data primary Poisson MLE for the model-compatible mean.",
+    "scenarios": [
+      {
+        "id": 1,
+        "seed_id": 1,
+        "name": "model_compatible",
+        "description": "Independent Poisson outcomes generated from the fixed primary fitted means; use the same fitted coefficients and counterfactual map to calculate known truth."
+      },
+      {
+        "id": 2,
+        "seed_id": 2,
+        "name": "smooth_omitted_interaction",
+        "description": "Add a smooth seasonal temperature-response interaction to the log mean and calculate the known counterfactual truth under the same interaction."
+      },
+      {
+        "id": 3,
+        "seed_id": 3,
+        "name": "correlated_overdispersed_ar1",
+        "description": "Generate outcomes around the model-compatible marginal means with a stationary Gaussian AR(1) lognormal multiplier; the marginal means, and therefore the fixed counterfactual truth, are preserved."
+      }
+    ],
+    "omitted_interaction": {
+      "formula": "0.10 * ((temperature_C - 20) / 10) * sin(2*pi*(day_of_year - 1)/365.25)",
+      "amplitude": 0.1,
+      "scale": "prespecified log-mean amplitude per 10 C seasonal temperature departure",
+      "status": "declared data-generating scenario scale; not an empirically estimated temperature-error bound"
+    },
+    "correlated_overdispersed": {
+      "latent_process": "stationary Gaussian AR(1) on outcome dates",
+      "phi": 0.5,
+      "marginal_variance_parameter": "sigma2 = max(log(1 + max(sum((y - mu)^2) - sum(mu), 0) / sum(mu^2)), 0), estimated once from the observed primary fit",
+      "mean_preservation": "Y_t | Z_t ~ Poisson(mu_t * exp(Z_t - sigma2/2)); stationary Z_t has variance sigma2, so E[Y_t]=mu_t and A_true remains sum(mu - mu_cf)",
+      "status": "prespecified dependence and overdispersion scenario using a data-estimated variance parameter; not a validated dependence bound"
+    },
+    "pilot_reps_per_scenario": 20,
+    "formal_reps_per_scenario": 1000,
+    "base_seed": 2026111202,
+    "mode_ids": {
+      "pilot": 1,
+      "formal": 2
+    },
+    "seed_rule": "NumPy SeedSequence([base_seed, mode_id, scenario_seed_id, replicate_index]); pilot and formal streams are disjoint"
+  },
+  "execution": {
+    "max_workers": 4,
+    "blas_threads_per_worker": 1,
+    "formal_run_requires_protocol_status": "approved",
+    "pilot_allowed_while_draft": true,
+    "formal_run_blocked_until_root_approval": true
+  },
+  "outputs": {
+    "observed_model": "results/real_observed_model.json",
+    "design_for_bound_review": "results/real_design.npz",
+    "sensitivity": "results/real_sensitivity.csv",
+    "pilot_replications": "results/real_pilot_replications.csv",
+    "pilot_summary": "results/real_pilot_summary.csv",
+    "pilot_paired_differences": "results/real_pilot_paired_differences.csv",
+    "pilot_reproducibility": "results/real_pilot_reproducibility.json",
+    "formal_replications": "results/real_formal_replications.csv",
+    "formal_summary": "results/real_formal_summary.csv",
+    "formal_paired_differences": "results/real_formal_paired_differences.csv",
+    "formal_reproducibility": "results/real_formal_reproducibility.json"
+  }
+}

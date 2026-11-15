@@ -1,0 +1,5 @@
+﻿panel,geography_code,source_window,summary_window,n_days,trim_excluded_days,deaths_total,deaths_mean_per_day,deaths_min_per_day,deaths_max_per_day,tmean_mean_c,tmean_min_c,tmean_max_c,notes
+Sao Paulo state SIM daily,35,2015-01-01 to 2019-12-31,Full input window: 2015-01-01 to 2019-12-31,1826,0,1483260,812.30,630,1059,20.09,7.87,27.47,UF 35 analysis subset; point exposure at the Sao Paulo capital coordinate
+Sao Paulo state SIM daily,35,2015-01-01 to 2019-12-31,Outcome window: 2015-01-22 to 2019-12-31,1805,21,1465725,812.04,630,1059,20.04,7.87,27.47,First 21 calendar days excluded from outcomes for the common lag-history trim
+Sao Paulo city SIM daily,355030,2015-01-01 to 2019-12-31,Full input window: 2015-01-01 to 2019-12-31,1826,0,385160,210.93,99,307,20.09,7.87,27.47,Municipality of residence; shares the Sao Paulo capital temperature point
+Sao Paulo city SIM daily,355030,2015-01-01 to 2019-12-31,Outcome window: 2015-01-22 to 2019-12-31,1805,21,380774,210.96,99,307,20.04,7.87,27.47,First 21 calendar days excluded from outcomes for the common lag-history trim

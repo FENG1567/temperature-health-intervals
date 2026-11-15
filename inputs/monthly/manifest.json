@@ -1,0 +1,110 @@
+[
+  {
+    "panel": "BRA",
+    "rows": 3240,
+    "regions": 27,
+    "fields": [
+      "state",
+      "year",
+      "month",
+      "t",
+      "tmean",
+      "logpop",
+      "y"
+    ],
+    "file": "BRA.csv",
+    "sha256": "b6cd847d4c3cb5fd203aa6eaf3365eada33b27629437ae6770faddd3a4334ded",
+    "loader_file": "/data/admin/fengshuo/conformal_attribution_20261107/simulation/code/c06_bai.py",
+    "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b",
+    "input_sources": [
+      {
+        "file": "/data/admin/fengshuo/climate_surg_attribution_20261106/01_data/processed/bra_analysis_panel_2011_2020.parquet",
+        "sha256": "c4c097ab98b7044a24680ef6c000e2b8d10741550f18a17b9397f394ff1e6a3e"
+      }
+    ],
+    "role": "Existing aggregate input export, without statistical fitting."
+  },
+  {
+    "panel": "MEX",
+    "rows": 3840,
+    "regions": 32,
+    "fields": [
+      "state",
+      "year",
+      "month",
+      "t",
+      "tmean",
+      "logpop",
+      "y"
+    ],
+    "file": "MEX.csv",
+    "sha256": "e72248d590f3593f1fb09933cb9ddb2fbf0c102a93927bd0947cb8bac61ead57",
+    "loader_file": "/data/admin/fengshuo/conformal_attribution_20261107/simulation/code/c06_bai.py",
+    "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b",
+    "input_sources": [
+      {
+        "file": "/data/admin/fengshuo/climate_surg_attribution_20261106/01_data/processed/mex_analysis_panel_2011_2020.parquet",
+        "sha256": "c46fbc708989a7a7d4227295fcb5282021417a7508ca972f9aa4ec24ef606dc8"
+      }
+    ],
+    "role": "Existing aggregate input export, without statistical fitting."
+  },
+  {
+    "panel": "SIM",
+    "rows": 1944,
+    "regions": 27,
+    "fields": [
+      "state",
+      "year",
+      "month",
+      "t",
+      "tmean",
+      "logpop",
+      "y"
+    ],
+    "file": "SIM.csv",
+    "sha256": "154382f6b6877028a30d7ef58d929de2363905d351e1cc2e16f68cc200d8dcc9",
+    "loader_file": "/data/admin/fengshuo/conformal_attribution_20261107/simulation/code/c06_bai.py",
+    "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b",
+    "input_sources": [
+      {
+        "file": "/data/admin/fengshuo/conformal_real_panel_20261110/results/sim_state_month.parquet",
+        "sha256": "738d3e0cdb5dd0cf6c6c9e9b8dd52888f56d360ddb975875edacea3290494072"
+      }
+    ],
+    "role": "Existing aggregate input export, without statistical fitting."
+  },
+  {
+    "panel": "MEXD",
+    "rows": 3840,
+    "regions": 32,
+    "fields": [
+      "state",
+      "year",
+      "month",
+      "t",
+      "tmean",
+      "logpop",
+      "y"
+    ],
+    "file": "MEXD.csv",
+    "sha256": "efb3992cd6c66171250a2ad85e1b253c448efeaf25c08b9169b4ef75ccef7944",
+    "loader_file": "/data/admin/fengshuo/conformal_attribution_20261107/simulation/code/c06_bai.py",
+    "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b",
+    "input_sources": [
+      {
+        "file": "/data/admin/fengshuo/conformal_attribution_20261107/incoming/mex_inegi_state_month.csv",
+        "sha256": "1681201bc19bfb63e2b944a7de2394184c4d87d74f481be08366bb4965cc6cb5"
+      },
+      {
+        "file": "/data/admin/fengshuo/climate_surg_attribution_20261106/01_data/processed/mex_state_month_expo_2011_2020.csv",
+        "sha256": "f1f99b24ca54601037148b49a57667ab99cb6b037f9cb6a9347e508499fb704b"
+      },
+      {
+        "file": "/data/admin/fengshuo/climate_surg_attribution_20261106/01_data/processed/mex_state_pop_2011_2020.csv",
+        "sha256": "bf0de80bc36027e6f34b5a820ea7261cada864dcb1c812da2cfbc4a43fa9cd25"
+      }
+    ],
+    "role": "Existing aggregate input export, without statistical fitting."
+  }
+]

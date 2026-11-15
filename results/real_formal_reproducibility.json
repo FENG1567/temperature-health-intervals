@@ -1,0 +1,46 @@
+{
+  "mode": "formal",
+  "started_utc": "2026-11-12T12:32:25.590464+00:00",
+  "elapsed_seconds": 24.916646127938293,
+  "project_root": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "pandas": "2.2.3",
+  "input": {
+    "path": "inputs/public/bra_state_day.parquet",
+    "sha256": "fc972f919a5e5d51280a4093b4992d2b5ea7add6c51c2193b741d412825a42d3",
+    "selected_state": "35",
+    "selected_rows": 1826,
+    "selected_period": [
+      "2015-01-01",
+      "2019-12-31"
+    ]
+  },
+  "config_sha256": "356fef29732d1b530f3196565e2fa02ddd5e68e22ec5c07453dcadeeae1ab610",
+  "code_sha256": "59b7392414cea1288b0d81a272db5466742ac47245c3e22012d0cb3362a2c940",
+  "workers": 4,
+  "blas_threads_per_worker": 1,
+  "replications": 3000,
+  "replications_per_scenario": 1000,
+  "pilot_replication_override": null,
+  "converged_replications": 3000,
+  "failed_replications": 0,
+  "primary_fit_converged": true,
+  "primary_fit_iterations": 4,
+  "primary_fit_condition_number": 48.0929565287585,
+  "outputs": [
+    "results/real_observed_model.json",
+    "results/real_design.npz",
+    "results/real_sensitivity.csv",
+    "results/real_formal_replications.csv",
+    "results/real_formal_summary.csv",
+    "results/real_formal_paired_differences.csv"
+  ],
+  "limits": [
+    "HAC intervals use finite-bandwidth Bartlett score covariance and have no exact finite-sample coverage guarantee.",
+    "Simulation scenarios are conditional on one fixed design; the smooth interaction scale is prespecified and is not an empirical temperature-error bound.",
+    "No population denominator is available in the aggregate panel; the outcome is daily state death count."
+  ]
+}

@@ -1,0 +1,14 @@
+# Recreated outputs and local environments
+outputs/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+# These exact caches are restored from .data_chunks/ when requested.
+additional_analyses/results/mvn_formal_state_factors.npz
+additional_analyses/results/mvn_formal_city_factors.npz

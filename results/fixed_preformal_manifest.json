@@ -1,0 +1,32 @@
+{
+  "study_id": "fixed_design_attribution_v1",
+  "protocol_status": "approved",
+  "created_utc": "2026-11-12T12:50:49.036830+00:00",
+  "config_path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/inputs/fixed_config.json",
+  "code_path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/code/fixed_design.py",
+  "source_path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/inputs/code_snapshot/core_sim.py",
+  "config_sha256": "39530743f6923d2c754b475008d2a313e48cede7ba38fcf1e15d64512f6b87fb",
+  "code_sha256": "1456a153e217f0197ba72c16be22a13a1e5a77fba09b0a0999c3dc861a38ece6",
+  "source_sha256": "7dfdaa97e0387d4b01a826a7a998aa2e5b66824133499df9be91e1daac98c0ba",
+  "pilot_artifacts": {
+    "pilot_summary": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_pilot_summary.csv",
+      "sha256": "bed1b0ed1645cba00a82b9cbaec1131c062f2fbdc22aab7525c3b001fbe3749e"
+    },
+    "pilot_calibration": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_pilot_calibration.csv",
+      "sha256": "d9738c9d22bdec5175e32c80f83f8dc17732c438603b41238f07abcf74e95fad"
+    },
+    "pilot_reproducibility": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_pilot_reproducibility.json",
+      "sha256": "3ca812fe74e37701579d48655663bef3df5eb8546b21cc939ef6547b00ecbe47"
+    },
+    "preformal_review": {
+      "path": "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/docs/fixed_design_preformal_review.md",
+      "sha256": "78f71dc4a623bbf2b1b93d5e765e417a135f1dfc6d23707d7294985f32d40397"
+    }
+  },
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3"
+}

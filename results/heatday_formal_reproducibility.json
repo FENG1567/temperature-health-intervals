@@ -1,0 +1,45 @@
+{
+  "study_id": "fixed_heatday_attribution_v1",
+  "mode": "formal",
+  "mode_id": 92103,
+  "protocol_status": "approved",
+  "started_utc": "2026-11-12T13:46:55.891303+00:00",
+  "finished_utc": "2026-11-12T13:48:07.870254+00:00",
+  "elapsed_seconds": 71.97893500328064,
+  "config_sha256": "dfa449b76f7c2bb4d9227675633c0ce1078b207fe0cb95178f52d9183d3148b1",
+  "code_sha256": "5cd29145c16e0c8d7b28c3edbb542a467eb393be21045890d86f5921ad781d11",
+  "engine_sha256": "1456a153e217f0197ba72c16be22a13a1e5a77fba09b0a0999c3dc861a38ece6",
+  "core_hd_sha256": "e7cfae53bd5a57d8d85863ac52fce1fb320a2047c5db49129f13221f36a75f50",
+  "core_sim_sha256": "7dfdaa97e0387d4b01a826a7a998aa2e5b66824133499df9be91e1daac98c0ba",
+  "run_fail_hd_sha256": "8d7a37694233d237b0954e9ca0dc35dd979c630649a210965453a0fa4aabdc8d",
+  "core_fail_hd_sha256": "8a80449b0aec4972e7e44dd760b8229ea9936c1b367c7ffd488839c7a9cc9f76",
+  "preformal_manifest_sha256": "d84b4ae262de69072974d44b4f4d3ecb60fd3dfcebfee9c8b745a474b254654a",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "workers": 4,
+  "blas_threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "panels": [
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_model_compatible_seed11501.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_model_compatible_seed24799.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_model_compatible_seed39119.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_source_h_quadratic_seed11501.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_source_h_quadratic_seed24799.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_source_h_quadratic_seed39119.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_common_bias_0_12_seed11501.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_common_bias_0_12_seed24799.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/heatday_formal_panel_common_bias_0_12_seed39119.csv"
+  ],
+  "warnings": [
+    "Truth-trained bias/scale calibration uses simulation truth and is not deployable without a labeled calibration target.",
+    "All scenarios use the same fixed H/Hcf exposure design for each scenario seed and set counterfactual cfg.bias=0. core_hd.common_bias changes eta0 for both factual and counterfactual means and can change scenario-specific A_true; A_true remains fixed only across outcome resamples within a design. The separate estimator-only shared_additive_shift diagnostic leaves A_true unchanged.",
+    "Year-half q reuses test outcomes and is a descriptive diagnostic only."
+  ]
+}

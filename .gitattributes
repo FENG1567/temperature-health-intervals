@@ -1,0 +1,6 @@
+# Preserve byte-level checksums of data and pinned source snapshots.
+* -text
+*.npz binary
+*.parquet binary
+*.pdf binary
+*.part* binary

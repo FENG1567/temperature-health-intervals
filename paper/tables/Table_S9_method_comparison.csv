@@ -1,0 +1,6 @@
+﻿Reference / approach,Existing capability,Question evaluated here
+Gasparrini & Leone [2],DL-model attributable quantities and coefficient-MVN propagation,Same-path target; matched covariance separates nonlinear propagation from variance and center errors
+Buja et al. [1]; multiway clustering [20],Pseudo-true estimation; covariance under clustered scores,Known-mean projection links a count-contrast center shift to empirical noncoverage
+Lei et al. [17],Predictive calibration under a stated exchangeability structure,Truth-trained simulation diagnostics; no unlabeled real-data deployment guarantee
+Basagaña & Ballester [13]; Economou [14],Temperature/lag effects with aggregated outcome data,A cumulative constraint can leave the present path-contrast lag direction unrestricted
+Rigaud et al. [38],Sampling and systematic uncertainty in health risk assessment,Finite-support shared-shape envelope and explicit lag-allocation dependence

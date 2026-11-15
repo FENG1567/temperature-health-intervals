@@ -1,0 +1,44 @@
+{
+  "study_id": "fixed_design_attribution_v1",
+  "mode": "formal",
+  "mode_id": 91103,
+  "protocol_status": "approved",
+  "started_utc": "2026-11-12T12:51:28.533459+00:00",
+  "finished_utc": "2026-11-12T12:52:23.253643+00:00",
+  "elapsed_seconds": 54.720221757888794,
+  "config_sha256": "39530743f6923d2c754b475008d2a313e48cede7ba38fcf1e15d64512f6b87fb",
+  "code_sha256": "1456a153e217f0197ba72c16be22a13a1e5a77fba09b0a0999c3dc861a38ece6",
+  "source_sha256": "7dfdaa97e0387d4b01a826a7a998aa2e5b66824133499df9be91e1daac98c0ba",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.39",
+  "workers": 4,
+  "blas_threads": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "preformal_manifest_sha256": "bd454d0d778e83cd67104dddab1386d8bb94cb2a36423085c3a138483213f20e",
+  "panels": [
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_model_compatible_seed11501.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_model_compatible_seed24799.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_model_compatible_seed39119.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_response_misspecification_seed11501.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_response_misspecification_seed24799.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_response_misspecification_seed39119.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_omitted_confounding_seed11501.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_omitted_confounding_seed24799.csv",
+    "/data/admin/fengshuo/conformal_attribution_upgrade_20261112/results/fixed_formal_panel_omitted_confounding_seed39119.csv"
+  ],
+  "warnings": [
+    "Truth-trained bias/scale calibration uses simulation truth and is not deployable without external truth-labeled calibration.",
+    "The direct common-factor corrected-intersection comparator shares CR1 multiplier and PSD clipping with the legacy comparator; component-specific two-way CR1 is separately reported.",
+    "Corrected CR1 groups region x year intersections; pinned-source covariance is a diagnostic.",
+    "Counterfactual is fixed and shared by fit and truth; estimated-Delta uncertainty is outside scope.",
+    "Year-half q is a same-test-replicate diagnostic based on full-grid predictions; it is not an independent calibration or conformal guarantee.",
+    "Residual permutation bootstrap and state split were not reused."
+  ]
+}

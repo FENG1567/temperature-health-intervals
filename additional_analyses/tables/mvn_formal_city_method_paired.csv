@@ -1,0 +1,13 @@
+case,scenario,covariance_method,method_1,method_2,n_planned_pairs,mean_paired_coverage_difference_method_1_minus_method_2,mcse_paired_coverage_difference,n_jointly_valid_width_pairs,mean_paired_width_difference_method_1_minus_method_2,mcse_paired_width_difference
+city,model_compatible,quasi_pearson,exact_nonlinear_mc,normal_wald,1000,-0.001,0.0026468860961526104,1000,0.36230654590096945,2.070084784554137
+city,model_compatible,quasi_pearson,exact_nonlinear_mc,linear_gaussian_mc,1000,0.0,0.0,1000,0.17538939711441254,0.045118641867645116
+city,model_compatible,hac28,exact_nonlinear_mc,normal_wald,1000,0.001,0.0022369631208412895,1000,-1.1657098510110864,1.8979993055333388
+city,model_compatible,hac28,exact_nonlinear_mc,linear_gaussian_mc,1000,0.0,0.0,1000,0.08093280748459505,0.029441679293091685
+city,smooth_omitted_interaction,quasi_pearson,exact_nonlinear_mc,normal_wald,1000,-0.003,0.0033169265897818718,1000,-6.939191204227101,2.123711682235331
+city,smooth_omitted_interaction,quasi_pearson,exact_nonlinear_mc,linear_gaussian_mc,1000,0.0,0.0,1000,0.2139994370680174,0.047804773886825365
+city,smooth_omitted_interaction,hac28,exact_nonlinear_mc,normal_wald,1000,-0.001,0.003001334371243565,1000,-5.663370561949907,2.0194810608172102
+city,smooth_omitted_interaction,hac28,exact_nonlinear_mc,linear_gaussian_mc,1000,0.0,0.0,1000,0.10374746722664781,0.034384206058758846
+city,correlated_overdispersed_ar1,quasi_pearson,exact_nonlinear_mc,normal_wald,1000,-0.001,0.0026468860961526104,1000,3.978913891235178,2.30432840316589
+city,correlated_overdispersed_ar1,quasi_pearson,exact_nonlinear_mc,linear_gaussian_mc,1000,-0.003,0.0017303161543469432,1000,0.27822719732149515,0.05954609202653469
+city,correlated_overdispersed_ar1,hac28,exact_nonlinear_mc,normal_wald,1000,-0.001,0.003001334371243565,1000,1.3382531300164482,2.4502592432041093
+city,correlated_overdispersed_ar1,hac28,exact_nonlinear_mc,linear_gaussian_mc,1000,0.0,0.0,1000,0.3760716794197576,0.055342663465798685

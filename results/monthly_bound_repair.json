@@ -1,0 +1,3026 @@
+{
+  "generated_at_utc": "2026-11-12T12:24:21.659716+00:00",
+  "project": "F:\\分析专用\\conformal_attribution_upgrade_20261112",
+  "method": "Observed monthly S1 two-lag fit with a newly centered fixed-allocation sensitivity class",
+  "new_class_id": "centered_two_lag_fixed_allocation_finite_grid_v1",
+  "analysis_scope": "four existing aggregate monthly panels; no outcome resampling or empirical coverage calculation",
+  "outcome_mapping": {
+    "BRA": {
+      "input_field": "y",
+      "label": "cholecystectomy admissions",
+      "unit": "expected outcome count over retained months"
+    },
+    "MEX": {
+      "input_field": "y",
+      "label": "cholecystectomy admissions",
+      "unit": "expected outcome count over retained months"
+    },
+    "SIM": {
+      "input_field": "y",
+      "label": "deaths",
+      "unit": "expected outcome count over retained months"
+    },
+    "MEXD": {
+      "input_field": "y",
+      "label": "deaths",
+      "unit": "expected outcome count over retained months"
+    }
+  },
+  "predeclared_sensitivity_grid": [
+    0.01,
+    0.025,
+    0.05,
+    0.1
+  ],
+  "main_delta": 0.05,
+  "allocation_weights": [
+    0.5,
+    0.5
+  ],
+  "counterfactual_shift_c": 1.0,
+  "automatic_1_over_0_85_correction": false,
+  "monthly_input_manifest": {
+    "file": "inputs\\monthly\\manifest.json",
+    "sha256": "295346c2f47158363fafc1ffea3ceab3d00d47b8ad33129c9b9ca107708077dd",
+    "panels": {
+      "BRA": {
+        "file": "BRA.csv",
+        "sha256": "b6cd847d4c3cb5fd203aa6eaf3365eada33b27629437ae6770faddd3a4334ded",
+        "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b"
+      },
+      "MEX": {
+        "file": "MEX.csv",
+        "sha256": "e72248d590f3593f1fb09933cb9ddb2fbf0c102a93927bd0947cb8bac61ead57",
+        "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b"
+      },
+      "SIM": {
+        "file": "SIM.csv",
+        "sha256": "154382f6b6877028a30d7ef58d929de2363905d351e1cc2e16f68cc200d8dcc9",
+        "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b"
+      },
+      "MEXD": {
+        "file": "MEXD.csv",
+        "sha256": "efb3992cd6c66171250a2ad85e1b253c448efeaf25c08b9169b4ef75ccef7944",
+        "loader_sha256": "b4999093f899b60b1d261f0652a07fb037490f03b1752ed43b4ae7898529a69b"
+      }
+    }
+  },
+  "code": {
+    "monthly_bound_repair_sha256": "0a6dbcb4fe93b290de8bd646a5e99f0f8a7228ecad29cf379e28cf6e9386c88b",
+    "fixed_design_sha256": "1456a153e217f0197ba72c16be22a13a1e5a77fba09b0a0999c3dc861a38ece6",
+    "bounded_sensitivity_sha256": "c4fe68fc92ea0a3c318e518a97821ba8d742fe15d2d35ce22de8f5d3096b77ad",
+    "pinned_core_sim_sha256": "7dfdaa97e0387d4b01a826a7a998aa2e5b66824133499df9be91e1daac98c0ba",
+    "fixed_config_sha256": "ed4f63a9adbdf416ce04cd4e5d76b135435c662cb79fc0df26908c248ed0e4b0"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3"
+  },
+  "panels": {
+    "BRA": {
+      "panel": "BRA",
+      "status": "ok",
+      "outcome": {
+        "input_field": "y",
+        "label": "cholecystectomy admissions",
+        "unit": "expected outcome count over retained months"
+      },
+      "panel_qc": {
+        "file": "inputs\\monthly\\BRA.csv",
+        "sha256": "b6cd847d4c3cb5fd203aa6eaf3365eada33b27629437ae6770faddd3a4334ded",
+        "input_rows": 3240,
+        "used_rows": 3213,
+        "regions": 27,
+        "period_start": "2011-01",
+        "period_end": "2020-12",
+        "calendar_months": 120,
+        "complete_region_month_keys_expected": 3240,
+        "missing_region_month_keys": 0,
+        "first_rows_without_prior_calendar_month": 27,
+        "rows_after_calendar_gaps_dropped": 0,
+        "rows_with_nonfinite_required_values_dropped": 0,
+        "per_region_missing_calendar_months": {
+          "11": 0,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "16": 0,
+          "17": 0,
+          "21": 0,
+          "22": 0,
+          "23": 0,
+          "24": 0,
+          "25": 0,
+          "26": 0,
+          "27": 0,
+          "28": 0,
+          "29": 0,
+          "31": 0,
+          "32": 0,
+          "33": 0,
+          "35": 0,
+          "41": 0,
+          "42": 0,
+          "43": 0,
+          "50": 0,
+          "51": 0,
+          "52": 0,
+          "53": 0
+        },
+        "lag_alignment": "lag 1 is the same region's exposure at calendar month t-1; first rows and rows without an adjacent prior calendar month are dropped"
+      },
+      "design": {
+        "factual_median_reference_Tref_c": 25.234535853157873,
+        "temperature_spline_knots_c": [
+          21.58285521448302,
+          25.234535853157873,
+          27.051857031540703
+        ],
+        "knots_source": "15th, 50th, and 85th percentiles of all observed panel factual monthly temperatures before lag-row dropping",
+        "design_columns": 43,
+        "lag_block_columns": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "month_fixed_effect_columns": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "region_fixed_effect_columns": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42
+        ],
+        "month_and_region_fixed_effects_identical_factual_counterfactual": true,
+        "counterfactual_shift_c_applied_once_per_lag": 1.0,
+        "counterfactual_xlag0_min_c": 9.359985704763336,
+        "counterfactual_xlag0_max_c": 29.827330343926945,
+        "counterfactual_xlag1_min_c": 9.359985704763336,
+        "counterfactual_xlag1_max_c": 29.827330343926945,
+        "metadata": {
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "lag_blocks": [
+            {
+              "name": "lag0_current_month",
+              "columns": [
+                2,
+                3
+              ]
+            },
+            {
+              "name": "lag1_previous_calendar_month",
+              "columns": [
+                4,
+                5
+              ]
+            }
+          ]
+        }
+      },
+      "fit": {
+        "family_and_link": "Poisson log-link pseudo-likelihood with log population offset",
+        "fit_method": "fixed_design.fit_tw; component-specific two-way region/year/intersection CR1 covariance",
+        "fit_max_iterations": 30,
+        "fit_tolerance_max_abs_step": 1e-09,
+        "converged": true,
+        "iterations": 15,
+        "max_abs_step": 5.666772606716108e-12,
+        "design_rank": 43,
+        "design_columns": 43,
+        "condition_number_information": 985704.5671961644,
+        "used_lstsq": false,
+        "used_pinv": false,
+        "region_clusters": 27,
+        "year_clusters": 10,
+        "region_year_intersections": 270,
+        "df": 9,
+        "alpha": 0.1,
+        "critical_value_exact_student_t": 1.8331129326536333,
+        "corrected_attribution_variance": 157277661.0790123,
+        "corrected_attribution_standard_error": 12541.039074933637,
+        "base_half_width": 22989.140917175406,
+        "base_interval": [
+          -9714.009055436778,
+          36264.27277891403
+        ],
+        "base_interval_status": "model-based approximate interval; no exact coverage claim",
+        "covariance_min_eigenvalue": -0.06691955017349685
+      },
+      "estimate": {
+        "A_hat_expected_outcome_count": 13275.131861738628,
+        "fitted_factual_expected_outcome_count": 1878245.000000009,
+        "fitted_counterfactual_expected_outcome_count": 1864969.8681382705,
+        "temperature_counterfactual_shift_c": 1.0
+      },
+      "sensitivity_class": {
+        "class_id": "centered_two_lag_fixed_allocation_finite_grid_v1",
+        "allocation_weights": [
+          0.5,
+          0.5
+        ],
+        "delta_grid_predeclared_in_script": [
+          0.01,
+          0.025,
+          0.05,
+          0.1
+        ],
+        "main_delta": 0.05,
+        "constraints": "|b(T)'u| <= delta for all observed factual and counterfactual basis rows in both mapped lag blocks, centered at the fixed panel factual median Tref",
+        "uniform_exponential_remainder": true,
+        "continuous_temperature_certificate": false,
+        "automatic_1_over_0_85_correction": false,
+        "main_delta_result": {
+          "delta": 0.05,
+          "method": "fixed_weight_lag_allocation_finite_grid_v1",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "lag_block_columns": [
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "allocation_weights": [
+            0.5,
+            0.5
+          ],
+          "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+          "constraint_rows": 12852,
+          "constraint_unique_basis_rows": 6480,
+          "feasible": true,
+          "bounded_class": true,
+          "constraint_rank": 2,
+          "A_hat": 13275.131861738628,
+          "gradient_u": [
+            1852674.5037386562,
+            6124837.6215403695
+          ],
+          "linear_max_plus": {
+            "status": "optimal",
+            "value": 8780.218982209159,
+            "u": [
+              0.00282492136467589,
+              0.000579045423561055
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "linear_max_minus": {
+            "status": "optimal",
+            "value": 8780.218982209159,
+            "u": [
+              -0.00282492136467589,
+              -0.000579045423561055
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "B_lin": 8780.218982209159,
+          "base_half_width": 22989.140917175406,
+          "exposure_columns_only_perturbed": true,
+          "nuisance_column_count": 39,
+          "continuous_temperature_certificate": false,
+          "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+          "polytope_vertex_count": 4,
+          "B_lin_vertex_check": 8780.218982209159,
+          "LP_vertex_objective_max_error": 0.0,
+          "rowwise_predictor_max_abs_factual": 0.04910616256832257,
+          "rowwise_predictor_max_abs_counterfactual": 0.046050701538838223,
+          "R_uniform": 528.9866957384213,
+          "sensitivity_radius": 9309.20567794758,
+          "A_sensitivity_bounds": [
+            3965.926183791047,
+            22584.33753968621
+          ],
+          "interval_bounds": [
+            -19023.21473338436,
+            45573.478456861616
+          ],
+          "threshold_diagnostics": {
+            "status": "zero_not_excluded",
+            "base_interval_half_width": 22989.140917175406,
+            "expanded_interval_excludes_zero": false,
+            "signed_margin_from_zero": 0.0
+          },
+          "adversarial_sample_checks": {
+            "status": "pass",
+            "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+            "candidate_count": 70,
+            "max_constraint_violation": 2.7755575615628914e-17,
+            "all_candidates_feasible": true,
+            "max_abs_actual_attribution_shift": 8812.69214104698,
+            "max_abs_actual_remainder": 35.12892917531144,
+            "actual_remainders_within_R_uniform": true,
+            "actual_shifts_within_sensitivity_envelope": true,
+            "max_nuisance_coefficient_change": 0.0,
+            "max_design_mapping_reconstruction_error": 2.0816681711721685e-17,
+            "LP_vs_vertex_objective_error": 0.0,
+            "all_checks_pass": true
+          }
+        },
+        "delta_grid_results": [
+          {
+            "delta": 0.01,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 12852,
+            "constraint_unique_basis_rows": 6480,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": 13275.131861738628,
+            "gradient_u": [
+              1852674.5037386562,
+              6124837.6215403695
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 1756.043796441833,
+              "u": [
+                0.000564984272935178,
+                0.00011580908471221112
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 1756.043796441833,
+              "u": [
+                -0.000564984272935178,
+                -0.00011580908471221112
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 1756.043796441833,
+            "base_half_width": 22989.140917175406,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 1756.0437964418315,
+            "LP_vertex_objective_max_error": 1.3642420526593924e-12,
+            "rowwise_predictor_max_abs_factual": 0.009821232513664515,
+            "rowwise_predictor_max_abs_counterfactual": 0.009210140307767647,
+            "R_uniform": 21.02321814678821,
+            "sensitivity_radius": 1777.067014588621,
+            "A_sensitivity_bounds": [
+              11498.064847150006,
+              15052.19887632725
+            ],
+            "interval_bounds": [
+              -11491.0760700254,
+              38041.33979350265
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 22989.140917175406,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 1.3877787807814457e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 1757.311467410298,
+              "max_abs_actual_remainder": 1.4142127311539525,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 3.469446951953614e-18,
+              "LP_vs_vertex_objective_error": 1.3642420526593924e-12,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.025,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 12852,
+            "constraint_unique_basis_rows": 6480,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": 13275.131861738628,
+            "gradient_u": [
+              1852674.5037386562,
+              6124837.6215403695
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 4390.109491104579,
+              "u": [
+                0.001412460682337945,
+                0.0002895227117805275
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 4390.109491104579,
+              "u": [
+                -0.001412460682337945,
+                -0.0002895227117805275
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 4390.109491104579,
+            "base_half_width": 22989.140917175406,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 4390.109491104579,
+            "LP_vertex_objective_max_error": 0.0,
+            "rowwise_predictor_max_abs_factual": 0.024553081284161286,
+            "rowwise_predictor_max_abs_counterfactual": 0.023025350769419112,
+            "R_uniform": 131.71334345537554,
+            "sensitivity_radius": 4521.822834559955,
+            "A_sensitivity_bounds": [
+              8753.309027178673,
+              17796.954696298584
+            ],
+            "interval_bounds": [
+              -14235.831889996733,
+              40786.09561347399
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 22989.140917175406,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 1.3877787807814457e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 4398.10558251664,
+              "max_abs_actual_remainder": 8.817532567594071,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 1.0408340855860843e-17,
+              "LP_vs_vertex_objective_error": 0.0,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.05,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 12852,
+            "constraint_unique_basis_rows": 6480,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": 13275.131861738628,
+            "gradient_u": [
+              1852674.5037386562,
+              6124837.6215403695
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 8780.218982209159,
+              "u": [
+                0.00282492136467589,
+                0.000579045423561055
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 8780.218982209159,
+              "u": [
+                -0.00282492136467589,
+                -0.000579045423561055
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 8780.218982209159,
+            "base_half_width": 22989.140917175406,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 8780.218982209159,
+            "LP_vertex_objective_max_error": 0.0,
+            "rowwise_predictor_max_abs_factual": 0.04910616256832257,
+            "rowwise_predictor_max_abs_counterfactual": 0.046050701538838223,
+            "R_uniform": 528.9866957384213,
+            "sensitivity_radius": 9309.20567794758,
+            "A_sensitivity_bounds": [
+              3965.926183791047,
+              22584.33753968621
+            ],
+            "interval_bounds": [
+              -19023.21473338436,
+              45573.478456861616
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 22989.140917175406,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 2.7755575615628914e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 8812.69214104698,
+              "max_abs_actual_remainder": 35.12892917531144,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 2.0816681711721685e-17,
+              "LP_vs_vertex_objective_error": 0.0,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.1,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 12852,
+            "constraint_unique_basis_rows": 6480,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": 13275.131861738628,
+            "gradient_u": [
+              1852674.5037386562,
+              6124837.6215403695
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 17560.437964418317,
+              "u": [
+                0.00564984272935178,
+                0.00115809084712211
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 17560.437964418317,
+              "u": [
+                -0.00564984272935178,
+                -0.00115809084712211
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 17560.437964418317,
+            "base_half_width": 22989.140917175406,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 17560.437964418317,
+            "LP_vertex_objective_max_error": 0.0,
+            "rowwise_predictor_max_abs_factual": 0.09821232513664514,
+            "rowwise_predictor_max_abs_counterfactual": 0.09210140307767645,
+            "R_uniform": 2133.1921442477624,
+            "sensitivity_radius": 19693.63010866608,
+            "A_sensitivity_bounds": [
+              -6418.498246927451,
+              32968.76197040471
+            ],
+            "interval_bounds": [
+              -29407.639164102857,
+              55957.902887580116
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 22989.140917175406,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 5.551115123125783e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 17694.258611877915,
+              "max_abs_actual_remainder": 139.39766602705367,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 4.163336342344337e-17,
+              "LP_vs_vertex_objective_error": 0.0,
+              "all_checks_pass": true
+            }
+          }
+        ],
+        "unrestricted_cumulative_nullspace_diagnostic": {
+          "class": "unrestricted cumulative-only two-lag perturbations",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "direction_lag0": [
+            0.057501055977243,
+            0.9983454455054633
+          ],
+          "direction_lag1": [
+            -0.057501055977243,
+            -0.9983454455054633
+          ],
+          "cumulative_direction_max_abs": 0.0,
+          "gradient_slope_per_unit_scale": 48479.57415910557,
+          "gradient_difference_norm": 48479.57415910557,
+          "unbounded_linear_objective_demonstrated": true,
+          "proof": "For d_beta0=v and d_beta1=-v, the cumulative coefficient perturbation is zero and the linear attribution change is (g0-g1)'v. Scaling v gives an unbounded linear objective whenever g0 != g1."
+        },
+        "interpretation": "conditional sensitivity bound for this newly declared fixed-allocation class; no empirical coverage or causal-identification claim"
+      },
+      "historical_comparison": {
+        "outcome_label": "cholecystectomy admissions",
+        "historical_artifact": {
+          "A1": 13332.61218119122,
+          "A_lo": 10872.270745995625,
+          "A_hi": 15696.496931089368,
+          "robust_lo": 3964.133170413904,
+          "robust_hi": 25843.895869643857,
+          "robust_width": 21879.762699229952,
+          "base_width": 17080.924428054546,
+          "tipping_delta": null
+        },
+        "historical_artifact_validity": "historical_artifact_unverified_statistical_validity",
+        "comparison_status": "not a like-for-like width or interval comparison: historical S1 column mapping and sensitivity-class specification were flagged in statistical_code_review.md; the repaired class is newly centered and fixed-weight",
+        "old_artifact_file": "inputs\\legacy\\simulation\\results\\external_constraint.json"
+      }
+    },
+    "MEX": {
+      "panel": "MEX",
+      "status": "ok",
+      "outcome": {
+        "input_field": "y",
+        "label": "cholecystectomy admissions",
+        "unit": "expected outcome count over retained months"
+      },
+      "panel_qc": {
+        "file": "inputs\\monthly\\MEX.csv",
+        "sha256": "e72248d590f3593f1fb09933cb9ddb2fbf0c102a93927bd0947cb8bac61ead57",
+        "input_rows": 3840,
+        "used_rows": 3808,
+        "regions": 32,
+        "period_start": "2011-01",
+        "period_end": "2020-12",
+        "calendar_months": 120,
+        "complete_region_month_keys_expected": 3840,
+        "missing_region_month_keys": 0,
+        "first_rows_without_prior_calendar_month": 32,
+        "rows_after_calendar_gaps_dropped": 0,
+        "rows_with_nonfinite_required_values_dropped": 0,
+        "per_region_missing_calendar_months": {
+          "01": 0,
+          "02": 0,
+          "03": 0,
+          "04": 0,
+          "05": 0,
+          "06": 0,
+          "07": 0,
+          "08": 0,
+          "09": 0,
+          "10": 0,
+          "11": 0,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "16": 0,
+          "17": 0,
+          "18": 0,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 0,
+          "23": 0,
+          "24": 0,
+          "25": 0,
+          "26": 0,
+          "27": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0
+        },
+        "lag_alignment": "lag 1 is the same region's exposure at calendar month t-1; first rows and rows without an adjacent prior calendar month are dropped"
+      },
+      "design": {
+        "factual_median_reference_Tref_c": 20.686915059243482,
+        "temperature_spline_knots_c": [
+          14.867769048188322,
+          20.686915059243482,
+          25.806343397325087
+        ],
+        "knots_source": "15th, 50th, and 85th percentiles of all observed panel factual monthly temperatures before lag-row dropping",
+        "design_columns": 48,
+        "lag_block_columns": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "month_fixed_effect_columns": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "region_fixed_effect_columns": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47
+        ],
+        "month_and_region_fixed_effects_identical_factual_counterfactual": true,
+        "counterfactual_shift_c_applied_once_per_lag": 1.0,
+        "counterfactual_xlag0_min_c": 6.098507079385942,
+        "counterfactual_xlag0_max_c": 30.58542423863565,
+        "counterfactual_xlag1_min_c": 6.098507079385942,
+        "counterfactual_xlag1_max_c": 30.58542423863565,
+        "metadata": {
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "lag_blocks": [
+            {
+              "name": "lag0_current_month",
+              "columns": [
+                2,
+                3
+              ]
+            },
+            {
+              "name": "lag1_previous_calendar_month",
+              "columns": [
+                4,
+                5
+              ]
+            }
+          ]
+        }
+      },
+      "fit": {
+        "family_and_link": "Poisson log-link pseudo-likelihood with log population offset",
+        "fit_method": "fixed_design.fit_tw; component-specific two-way region/year/intersection CR1 covariance",
+        "fit_max_iterations": 30,
+        "fit_tolerance_max_abs_step": 1e-09,
+        "converged": true,
+        "iterations": 16,
+        "max_abs_step": 2.5990321006474915e-12,
+        "design_rank": 48,
+        "design_columns": 48,
+        "condition_number_information": 7560658.943859551,
+        "used_lstsq": false,
+        "used_pinv": false,
+        "region_clusters": 32,
+        "year_clusters": 10,
+        "region_year_intersections": 320,
+        "df": 9,
+        "alpha": 0.1,
+        "critical_value_exact_student_t": 1.8331129326536333,
+        "corrected_attribution_variance": 6298260.3801744245,
+        "corrected_attribution_standard_error": 2509.6335151122016,
+        "base_half_width": 4600.441652773175,
+        "base_interval": [
+          -10650.836477550787,
+          -1449.9531720044388
+        ],
+        "base_interval_status": "model-based approximate interval; no exact coverage claim",
+        "covariance_min_eigenvalue": -0.03719708056227653
+      },
+      "estimate": {
+        "A_hat_expected_outcome_count": -6050.394824777613,
+        "fitted_factual_expected_outcome_count": 585159.0000000072,
+        "fitted_counterfactual_expected_outcome_count": 591209.3948247848,
+        "temperature_counterfactual_shift_c": 1.0
+      },
+      "sensitivity_class": {
+        "class_id": "centered_two_lag_fixed_allocation_finite_grid_v1",
+        "allocation_weights": [
+          0.5,
+          0.5
+        ],
+        "delta_grid_predeclared_in_script": [
+          0.01,
+          0.025,
+          0.05,
+          0.1
+        ],
+        "main_delta": 0.05,
+        "constraints": "|b(T)'u| <= delta for all observed factual and counterfactual basis rows in both mapped lag blocks, centered at the fixed panel factual median Tref",
+        "uniform_exponential_remainder": true,
+        "continuous_temperature_certificate": false,
+        "automatic_1_over_0_85_correction": false,
+        "main_delta_result": {
+          "delta": 0.05,
+          "method": "fixed_weight_lag_allocation_finite_grid_v1",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "lag_block_columns": [
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "allocation_weights": [
+            0.5,
+            0.5
+          ],
+          "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+          "constraint_rows": 15232,
+          "constraint_unique_basis_rows": 7680,
+          "feasible": true,
+          "bounded_class": true,
+          "constraint_rank": 2,
+          "A_hat": -6050.394824777613,
+          "gradient_u": [
+            599401.105834091,
+            4163168.1678629564
+          ],
+          "linear_max_plus": {
+            "status": "optimal",
+            "value": 2320.1842883369745,
+            "u": [
+              0.003331489033536796,
+              7.765385987922308e-05
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "linear_max_minus": {
+            "status": "optimal",
+            "value": 2320.1842883369745,
+            "u": [
+              -0.003331489033536796,
+              -7.765385987922308e-05
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "B_lin": 2320.1842883369745,
+          "base_half_width": 4600.441652773175,
+          "exposure_columns_only_perturbed": true,
+          "nuisance_column_count": 44,
+          "continuous_temperature_certificate": false,
+          "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+          "polytope_vertex_count": 4,
+          "B_lin_vertex_check": 2320.184288336973,
+          "LP_vertex_objective_max_error": 1.3642420526593924e-12,
+          "rowwise_predictor_max_abs_factual": 0.04559661160595843,
+          "rowwise_predictor_max_abs_counterfactual": 0.0470191840309698,
+          "R_uniform": 198.03098560773512,
+          "sensitivity_radius": 2518.2152739447097,
+          "A_sensitivity_bounds": [
+            -8568.610098722324,
+            -3532.1795508329037
+          ],
+          "interval_bounds": [
+            -13169.051751495497,
+            1068.262101940271
+          ],
+          "threshold_diagnostics": {
+            "status": "zero_not_excluded",
+            "base_interval_half_width": 4600.441652773175,
+            "expanded_interval_excludes_zero": false,
+            "signed_margin_from_zero": 0.0
+          },
+          "adversarial_sample_checks": {
+            "status": "pass",
+            "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+            "candidate_count": 70,
+            "max_constraint_violation": 5.551115123125783e-17,
+            "all_candidates_feasible": true,
+            "max_abs_actual_attribution_shift": 2326.0278211713303,
+            "max_abs_actual_remainder": 12.938993696385296,
+            "actual_remainders_within_R_uniform": true,
+            "actual_shifts_within_sensitivity_envelope": true,
+            "max_nuisance_coefficient_change": 0.0,
+            "max_design_mapping_reconstruction_error": 2.0816681711721685e-17,
+            "LP_vs_vertex_objective_error": 1.3642420526593924e-12,
+            "all_checks_pass": true
+          }
+        },
+        "delta_grid_results": [
+          {
+            "delta": 0.01,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -6050.394824777613,
+            "gradient_u": [
+              599401.105834091,
+              4163168.1678629564
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 464.03685766739466,
+              "u": [
+                0.0006662978067073593,
+                1.5530771975844555e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 464.03685766739466,
+              "u": [
+                -0.0006662978067073593,
+                -1.5530771975844555e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 464.03685766739466,
+            "base_half_width": 4600.441652773175,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 464.0368576673946,
+            "LP_vertex_objective_max_error": 5.684341886080802e-14,
+            "rowwise_predictor_max_abs_factual": 0.009119322321191685,
+            "rowwise_predictor_max_abs_counterfactual": 0.009403836806193961,
+            "R_uniform": 7.867722875259838,
+            "sensitivity_radius": 471.9045805426545,
+            "A_sensitivity_bounds": [
+              -6522.299405320268,
+              -5578.4902442349585
+            ],
+            "interval_bounds": [
+              -11122.741058093441,
+              -978.0485914617843
+            ],
+            "threshold_diagnostics": {
+              "status": "negative_exclusion",
+              "base_interval_half_width": 4600.441652773175,
+              "expanded_interval_excludes_zero": true,
+              "signed_margin_from_zero": -978.0485914617843
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 1.734723475976807e-18,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 464.258558794274,
+              "max_abs_actual_remainder": 0.5212155523767308,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 3.469446951953614e-18,
+              "LP_vs_vertex_objective_error": 5.684341886080802e-14,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.025,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -6050.394824777613,
+            "gradient_u": [
+              599401.105834091,
+              4163168.1678629564
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 1160.0921441684873,
+              "u": [
+                0.001665744516768398,
+                3.882692993961154e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 1160.0921441684873,
+              "u": [
+                -0.001665744516768398,
+                -3.882692993961154e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 1160.0921441684873,
+            "base_half_width": 4600.441652773175,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 1160.0921441684866,
+            "LP_vertex_objective_max_error": 6.821210263296962e-13,
+            "rowwise_predictor_max_abs_factual": 0.022798305802979216,
+            "rowwise_predictor_max_abs_counterfactual": 0.0235095920154849,
+            "R_uniform": 49.29826129663055,
+            "sensitivity_radius": 1209.3904054651177,
+            "A_sensitivity_bounds": [
+              -7259.785230242731,
+              -4841.004419312496
+            ],
+            "interval_bounds": [
+              -11860.226883015905,
+              -240.56276653932105
+            ],
+            "threshold_diagnostics": {
+              "status": "negative_exclusion",
+              "base_interval_half_width": 4600.441652773175,
+              "expanded_interval_excludes_zero": true,
+              "signed_margin_from_zero": -240.56276653932105
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 2.7755575615628914e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 1161.5059797817376,
+              "max_abs_actual_remainder": 3.248999656541855,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 1.0408340855860843e-17,
+              "LP_vs_vertex_objective_error": 6.821210263296962e-13,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.05,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -6050.394824777613,
+            "gradient_u": [
+              599401.105834091,
+              4163168.1678629564
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 2320.1842883369745,
+              "u": [
+                0.003331489033536796,
+                7.765385987922308e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 2320.1842883369745,
+              "u": [
+                -0.003331489033536796,
+                -7.765385987922308e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 2320.1842883369745,
+            "base_half_width": 4600.441652773175,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 2320.184288336973,
+            "LP_vertex_objective_max_error": 1.3642420526593924e-12,
+            "rowwise_predictor_max_abs_factual": 0.04559661160595843,
+            "rowwise_predictor_max_abs_counterfactual": 0.0470191840309698,
+            "R_uniform": 198.03098560773512,
+            "sensitivity_radius": 2518.2152739447097,
+            "A_sensitivity_bounds": [
+              -8568.610098722324,
+              -3532.1795508329037
+            ],
+            "interval_bounds": [
+              -13169.051751495497,
+              1068.262101940271
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 4600.441652773175,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 5.551115123125783e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 2326.0278211713303,
+              "max_abs_actual_remainder": 12.938993696385296,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 2.0816681711721685e-17,
+              "LP_vs_vertex_objective_error": 1.3642420526593924e-12,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.1,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -6050.394824777613,
+            "gradient_u": [
+              599401.105834091,
+              4163168.1678629564
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 4640.368576673949,
+              "u": [
+                0.006662978067073592,
+                0.00015530771975844616
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 4640.368576673949,
+              "u": [
+                -0.006662978067073592,
+                -0.00015530771975844616
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 4640.368576673949,
+            "base_half_width": 4600.441652773175,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 4640.368576673946,
+            "LP_vertex_objective_max_error": 2.7284841053187847e-12,
+            "rowwise_predictor_max_abs_factual": 0.09119322321191686,
+            "rowwise_predictor_max_abs_counterfactual": 0.0940383680619396,
+            "R_uniform": 798.8979909106083,
+            "sensitivity_radius": 5439.266567584557,
+            "A_sensitivity_bounds": [
+              -11489.66139236217,
+              -611.128257193056
+            ],
+            "interval_bounds": [
+              -16090.103045135344,
+              3989.3133955801186
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 4600.441652773175,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 1.1102230246251565e-16,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 4665.250965312123,
+              "max_abs_actual_remainder": 51.304568838269915,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 4.163336342344337e-17,
+              "LP_vs_vertex_objective_error": 2.7284841053187847e-12,
+              "all_checks_pass": true
+            }
+          }
+        ],
+        "unrestricted_cumulative_nullspace_diagnostic": {
+          "class": "unrestricted cumulative-only two-lag perturbations",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "direction_lag0": [
+            -0.4399111587994361,
+            -0.8980412976938964
+          ],
+          "direction_lag1": [
+            0.4399111587994361,
+            0.8980412976938964
+          ],
+          "cumulative_direction_max_abs": 0.0,
+          "gradient_slope_per_unit_scale": 4080.135367897112,
+          "gradient_difference_norm": 4080.1353678971113,
+          "unbounded_linear_objective_demonstrated": true,
+          "proof": "For d_beta0=v and d_beta1=-v, the cumulative coefficient perturbation is zero and the linear attribution change is (g0-g1)'v. Scaling v gives an unbounded linear objective whenever g0 != g1."
+        },
+        "interpretation": "conditional sensitivity bound for this newly declared fixed-allocation class; no empirical coverage or causal-identification claim"
+      },
+      "historical_comparison": {
+        "outcome_label": "cholecystectomy admissions",
+        "historical_artifact": {
+          "A1": -6339.701945854966,
+          "A_lo": -7626.6284416266635,
+          "A_hi": -5059.102164788193,
+          "robust_lo": -11093.136963141364,
+          "robust_hi": -2771.007424672733,
+          "robust_width": 8322.129538468631,
+          "base_width": 5748.52759211162,
+          "tipping_delta": null
+        },
+        "historical_artifact_validity": "historical_artifact_unverified_statistical_validity",
+        "comparison_status": "not a like-for-like width or interval comparison: historical S1 column mapping and sensitivity-class specification were flagged in statistical_code_review.md; the repaired class is newly centered and fixed-weight",
+        "old_artifact_file": "inputs\\legacy\\simulation\\results\\external_constraint.json"
+      }
+    },
+    "SIM": {
+      "panel": "SIM",
+      "status": "ok",
+      "outcome": {
+        "input_field": "y",
+        "label": "deaths",
+        "unit": "expected outcome count over retained months"
+      },
+      "panel_qc": {
+        "file": "inputs\\monthly\\SIM.csv",
+        "sha256": "154382f6b6877028a30d7ef58d929de2363905d351e1cc2e16f68cc200d8dcc9",
+        "input_rows": 1944,
+        "used_rows": 1917,
+        "regions": 27,
+        "period_start": "2015-01",
+        "period_end": "2020-12",
+        "calendar_months": 72,
+        "complete_region_month_keys_expected": 1944,
+        "missing_region_month_keys": 0,
+        "first_rows_without_prior_calendar_month": 27,
+        "rows_after_calendar_gaps_dropped": 0,
+        "rows_with_nonfinite_required_values_dropped": 0,
+        "per_region_missing_calendar_months": {
+          "11": 0,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "16": 0,
+          "17": 0,
+          "21": 0,
+          "22": 0,
+          "23": 0,
+          "24": 0,
+          "25": 0,
+          "26": 0,
+          "27": 0,
+          "28": 0,
+          "29": 0,
+          "31": 0,
+          "32": 0,
+          "33": 0,
+          "35": 0,
+          "41": 0,
+          "42": 0,
+          "43": 0,
+          "50": 0,
+          "51": 0,
+          "52": 0,
+          "53": 0
+        },
+        "lag_alignment": "lag 1 is the same region's exposure at calendar month t-1; first rows and rows without an adjacent prior calendar month are dropped"
+      },
+      "design": {
+        "factual_median_reference_Tref_c": 25.443683237996535,
+        "temperature_spline_knots_c": [
+          21.823876182142854,
+          25.443683237996535,
+          27.17837212705156
+        ],
+        "knots_source": "15th, 50th, and 85th percentiles of all observed panel factual monthly temperatures before lag-row dropping",
+        "design_columns": 43,
+        "lag_block_columns": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "month_fixed_effect_columns": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "region_fixed_effect_columns": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42
+        ],
+        "month_and_region_fixed_effects_identical_factual_counterfactual": true,
+        "counterfactual_shift_c_applied_once_per_lag": 1.0,
+        "counterfactual_xlag0_min_c": 9.359985704763336,
+        "counterfactual_xlag0_max_c": 29.827330343926945,
+        "counterfactual_xlag1_min_c": 9.359985704763336,
+        "counterfactual_xlag1_max_c": 29.827330343926945,
+        "metadata": {
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "lag_blocks": [
+            {
+              "name": "lag0_current_month",
+              "columns": [
+                2,
+                3
+              ]
+            },
+            {
+              "name": "lag1_previous_calendar_month",
+              "columns": [
+                4,
+                5
+              ]
+            }
+          ]
+        }
+      },
+      "fit": {
+        "family_and_link": "Poisson log-link pseudo-likelihood with log population offset",
+        "fit_method": "fixed_design.fit_tw; component-specific two-way region/year/intersection CR1 covariance",
+        "fit_max_iterations": 30,
+        "fit_tolerance_max_abs_step": 1e-09,
+        "converged": true,
+        "iterations": 13,
+        "max_abs_step": 5.1478959983697337e-11,
+        "design_rank": 43,
+        "design_columns": 43,
+        "condition_number_information": 1016632.513956276,
+        "used_lstsq": false,
+        "used_pinv": false,
+        "region_clusters": 27,
+        "year_clusters": 6,
+        "region_year_intersections": 162,
+        "df": 5,
+        "alpha": 0.1,
+        "critical_value_exact_student_t": 2.0150483733330233,
+        "corrected_attribution_variance": 838536809.328976,
+        "corrected_attribution_standard_error": 28957.500053163705,
+        "base_half_width": 58350.76337791846,
+        "base_interval": [
+          -178688.23070199095,
+          -61986.70394615403
+        ],
+        "base_interval_status": "model-based approximate interval; no exact coverage claim",
+        "covariance_min_eigenvalue": -0.018125235617461523
+      },
+      "estimate": {
+        "A_hat_expected_outcome_count": -120337.4673240725,
+        "fitted_factual_expected_outcome_count": 8003260.999999952,
+        "fitted_counterfactual_expected_outcome_count": 8123598.467324024,
+        "temperature_counterfactual_shift_c": 1.0
+      },
+      "sensitivity_class": {
+        "class_id": "centered_two_lag_fixed_allocation_finite_grid_v1",
+        "allocation_weights": [
+          0.5,
+          0.5
+        ],
+        "delta_grid_predeclared_in_script": [
+          0.01,
+          0.025,
+          0.05,
+          0.1
+        ],
+        "main_delta": 0.05,
+        "constraints": "|b(T)'u| <= delta for all observed factual and counterfactual basis rows in both mapped lag blocks, centered at the fixed panel factual median Tref",
+        "uniform_exponential_remainder": true,
+        "continuous_temperature_certificate": false,
+        "automatic_1_over_0_85_correction": false,
+        "main_delta_result": {
+          "delta": 0.05,
+          "method": "fixed_weight_lag_allocation_finite_grid_v1",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "lag_block_columns": [
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "allocation_weights": [
+            0.5,
+            0.5
+          ],
+          "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+          "constraint_rows": 7668,
+          "constraint_unique_basis_rows": 3888,
+          "feasible": true,
+          "bounded_class": true,
+          "constraint_rank": 2,
+          "A_hat": -120337.4673240725,
+          "gradient_u": [
+            8515756.615185719,
+            25365556.31602602
+          ],
+          "linear_max_plus": {
+            "status": "optimal",
+            "value": 39336.936781728014,
+            "u": [
+              0.0027660803145253834,
+              0.0006221692853313291
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "linear_max_minus": {
+            "status": "optimal",
+            "value": 39336.936781728014,
+            "u": [
+              -0.0027660803145253834,
+              -0.0006221692853313291
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "B_lin": 39336.936781728014,
+          "base_half_width": 58350.76337791846,
+          "exposure_columns_only_perturbed": true,
+          "nuisance_column_count": 39,
+          "continuous_temperature_certificate": false,
+          "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+          "polytope_vertex_count": 4,
+          "B_lin_vertex_check": 39336.93678172802,
+          "LP_vertex_objective_max_error": 7.275957614183426e-12,
+          "rowwise_predictor_max_abs_factual": 0.04907164186320152,
+          "rowwise_predictor_max_abs_counterfactual": 0.04613296254323939,
+          "R_uniform": 2214.794803406876,
+          "sensitivity_radius": 41551.73158513489,
+          "A_sensitivity_bounds": [
+            -161889.1989092074,
+            -78785.7357389376
+          ],
+          "interval_bounds": [
+            -220239.96228712585,
+            -20434.972361019143
+          ],
+          "threshold_diagnostics": {
+            "status": "negative_exclusion",
+            "base_interval_half_width": 58350.76337791846,
+            "expanded_interval_excludes_zero": true,
+            "signed_margin_from_zero": -20434.972361019143
+          },
+          "adversarial_sample_checks": {
+            "status": "pass",
+            "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+            "candidate_count": 70,
+            "max_constraint_violation": 0.0,
+            "all_candidates_feasible": true,
+            "max_abs_actual_attribution_shift": 39524.486873961985,
+            "max_abs_actual_remainder": 187.55009223397064,
+            "actual_remainders_within_R_uniform": true,
+            "actual_shifts_within_sensitivity_envelope": true,
+            "max_nuisance_coefficient_change": 0.0,
+            "max_design_mapping_reconstruction_error": 1.3877787807814457e-17,
+            "LP_vs_vertex_objective_error": 7.275957614183426e-12,
+            "all_checks_pass": true
+          }
+        },
+        "delta_grid_results": [
+          {
+            "delta": 0.01,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 7668,
+            "constraint_unique_basis_rows": 3888,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -120337.4673240725,
+            "gradient_u": [
+              8515756.615185719,
+              25365556.31602602
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 7867.387356345608,
+              "u": [
+                0.0005532160629050766,
+                0.00012443385706626604
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 7867.387356345608,
+              "u": [
+                -0.0005532160629050766,
+                -0.00012443385706626604
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 7867.387356345608,
+            "base_half_width": 58350.76337791846,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 7867.387356345605,
+            "LP_vertex_objective_max_error": 2.7284841053187847e-12,
+            "rowwise_predictor_max_abs_factual": 0.009814328372640305,
+            "rowwise_predictor_max_abs_counterfactual": 0.009226592508647878,
+            "R_uniform": 88.03799448432096,
+            "sensitivity_radius": 7955.425350829929,
+            "A_sensitivity_bounds": [
+              -128292.89267490242,
+              -112382.04197324257
+            ],
+            "interval_bounds": [
+              -186643.65605282088,
+              -54031.278595324104
+            ],
+            "threshold_diagnostics": {
+              "status": "negative_exclusion",
+              "base_interval_half_width": 58350.76337791846,
+              "expanded_interval_excludes_zero": true,
+              "signed_margin_from_zero": -54031.278595324104
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 6.938893903907228e-18,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 7874.756698564626,
+              "max_abs_actual_remainder": 7.369342219020837,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 2.6020852139652106e-18,
+              "LP_vs_vertex_objective_error": 2.7284841053187847e-12,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.025,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 7668,
+            "constraint_unique_basis_rows": 3888,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -120337.4673240725,
+            "gradient_u": [
+              8515756.615185719,
+              25365556.31602602
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 19668.468390864007,
+              "u": [
+                0.0013830401572626917,
+                0.00031108464266566455
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 19668.468390864007,
+              "u": [
+                -0.0013830401572626917,
+                -0.00031108464266566455
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 19668.468390864007,
+            "base_half_width": 58350.76337791846,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 19668.46839086401,
+            "LP_vertex_objective_max_error": 3.637978807091713e-12,
+            "rowwise_predictor_max_abs_factual": 0.02453582093160076,
+            "rowwise_predictor_max_abs_counterfactual": 0.023066481271619695,
+            "R_uniform": 551.5310722836161,
+            "sensitivity_radius": 20219.999463147622,
+            "A_sensitivity_bounds": [
+              -140557.46678722012,
+              -100117.46786092487
+            ],
+            "interval_bounds": [
+              -198908.23016513858,
+              -41766.70448300641
+            ],
+            "threshold_diagnostics": {
+              "status": "negative_exclusion",
+              "base_interval_half_width": 58350.76337791846,
+              "expanded_interval_excludes_zero": true,
+              "signed_margin_from_zero": -41766.70448300641
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 0.0,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 19714.837209943682,
+              "max_abs_actual_remainder": 46.368819079667446,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 6.938893903907228e-18,
+              "LP_vs_vertex_objective_error": 3.637978807091713e-12,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.05,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 7668,
+            "constraint_unique_basis_rows": 3888,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -120337.4673240725,
+            "gradient_u": [
+              8515756.615185719,
+              25365556.31602602
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 39336.936781728014,
+              "u": [
+                0.0027660803145253834,
+                0.0006221692853313291
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 39336.936781728014,
+              "u": [
+                -0.0027660803145253834,
+                -0.0006221692853313291
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 39336.936781728014,
+            "base_half_width": 58350.76337791846,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 39336.93678172802,
+            "LP_vertex_objective_max_error": 7.275957614183426e-12,
+            "rowwise_predictor_max_abs_factual": 0.04907164186320152,
+            "rowwise_predictor_max_abs_counterfactual": 0.04613296254323939,
+            "R_uniform": 2214.794803406876,
+            "sensitivity_radius": 41551.73158513489,
+            "A_sensitivity_bounds": [
+              -161889.1989092074,
+              -78785.7357389376
+            ],
+            "interval_bounds": [
+              -220239.96228712585,
+              -20434.972361019143
+            ],
+            "threshold_diagnostics": {
+              "status": "negative_exclusion",
+              "base_interval_half_width": 58350.76337791846,
+              "expanded_interval_excludes_zero": true,
+              "signed_margin_from_zero": -20434.972361019143
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 0.0,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 39524.486873961985,
+              "max_abs_actual_remainder": 187.55009223397064,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 1.3877787807814457e-17,
+              "LP_vs_vertex_objective_error": 7.275957614183426e-12,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.1,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 7668,
+            "constraint_unique_basis_rows": 3888,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -120337.4673240725,
+            "gradient_u": [
+              8515756.615185719,
+              25365556.31602602
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 78673.87356345603,
+              "u": [
+                0.005532160629050767,
+                0.0012443385706626582
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 78673.87356345603,
+              "u": [
+                -0.005532160629050767,
+                -0.0012443385706626582
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 78673.87356345603,
+            "base_half_width": 58350.76337791846,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 39,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 78673.87356345604,
+            "LP_vertex_objective_max_error": 1.4551915228366852e-11,
+            "rowwise_predictor_max_abs_factual": 0.09814328372640305,
+            "rowwise_predictor_max_abs_counterfactual": 0.09226592508647878,
+            "R_uniform": 8929.247894307646,
+            "sensitivity_radius": 87603.12145776367,
+            "A_sensitivity_bounds": [
+              -207940.58878183615,
+              -32734.345866308824
+            ],
+            "interval_bounds": [
+              -266291.3521597546,
+              25616.417511609638
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 58350.76337791846,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 0.0,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 79440.7539144503,
+              "max_abs_actual_remainder": 766.8803509942663,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 2.7755575615628914e-17,
+              "LP_vs_vertex_objective_error": 1.4551915228366852e-11,
+              "all_checks_pass": true
+            }
+          }
+        ],
+        "unrestricted_cumulative_nullspace_diagnostic": {
+          "class": "unrestricted cumulative-only two-lag perturbations",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "direction_lag0": [
+            0.24630936570879505,
+            -0.9691912589185537
+          ],
+          "direction_lag1": [
+            -0.24630936570879505,
+            0.9691912589185537
+          ],
+          "cumulative_direction_max_abs": 0.0,
+          "gradient_slope_per_unit_scale": 60005.21265527288,
+          "gradient_difference_norm": 60005.21265527288,
+          "unbounded_linear_objective_demonstrated": true,
+          "proof": "For d_beta0=v and d_beta1=-v, the cumulative coefficient perturbation is zero and the linear attribution change is (g0-g1)'v. Scaling v gives an unbounded linear objective whenever g0 != g1."
+        },
+        "interpretation": "conditional sensitivity bound for this newly declared fixed-allocation class; no empirical coverage or causal-identification claim"
+      },
+      "historical_comparison": {
+        "outcome_label": "deaths",
+        "historical_artifact": {
+          "A1": -109191.28314123367,
+          "A_lo": -133543.81117724985,
+          "A_hi": -85645.88293142284,
+          "robust_lo": -193196.7723136986,
+          "robust_hi": -44827.5010472795,
+          "robust_width": 148369.2712664191,
+          "base_width": 100694.01472476061,
+          "tipping_delta": null
+        },
+        "historical_artifact_validity": "historical_artifact_unverified_statistical_validity",
+        "comparison_status": "not a like-for-like width or interval comparison: historical S1 column mapping and sensitivity-class specification were flagged in statistical_code_review.md; the repaired class is newly centered and fixed-weight",
+        "old_artifact_file": "inputs\\legacy\\simulation\\results\\external_constraint.json"
+      }
+    },
+    "MEXD": {
+      "panel": "MEXD",
+      "status": "ok",
+      "outcome": {
+        "input_field": "y",
+        "label": "deaths",
+        "unit": "expected outcome count over retained months"
+      },
+      "panel_qc": {
+        "file": "inputs\\monthly\\MEXD.csv",
+        "sha256": "efb3992cd6c66171250a2ad85e1b253c448efeaf25c08b9169b4ef75ccef7944",
+        "input_rows": 3840,
+        "used_rows": 3808,
+        "regions": 32,
+        "period_start": "2011-01",
+        "period_end": "2020-12",
+        "calendar_months": 120,
+        "complete_region_month_keys_expected": 3840,
+        "missing_region_month_keys": 0,
+        "first_rows_without_prior_calendar_month": 32,
+        "rows_after_calendar_gaps_dropped": 0,
+        "rows_with_nonfinite_required_values_dropped": 0,
+        "per_region_missing_calendar_months": {
+          "01": 0,
+          "02": 0,
+          "03": 0,
+          "04": 0,
+          "05": 0,
+          "06": 0,
+          "07": 0,
+          "08": 0,
+          "09": 0,
+          "10": 0,
+          "11": 0,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "16": 0,
+          "17": 0,
+          "18": 0,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 0,
+          "23": 0,
+          "24": 0,
+          "25": 0,
+          "26": 0,
+          "27": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0
+        },
+        "lag_alignment": "lag 1 is the same region's exposure at calendar month t-1; first rows and rows without an adjacent prior calendar month are dropped"
+      },
+      "design": {
+        "factual_median_reference_Tref_c": 20.686915059243482,
+        "temperature_spline_knots_c": [
+          14.867769048188322,
+          20.686915059243482,
+          25.806343397325087
+        ],
+        "knots_source": "15th, 50th, and 85th percentiles of all observed panel factual monthly temperatures before lag-row dropping",
+        "design_columns": 48,
+        "lag_block_columns": [
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "month_fixed_effect_columns": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "region_fixed_effect_columns": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47
+        ],
+        "month_and_region_fixed_effects_identical_factual_counterfactual": true,
+        "counterfactual_shift_c_applied_once_per_lag": 1.0,
+        "counterfactual_xlag0_min_c": 6.098507079385942,
+        "counterfactual_xlag0_max_c": 30.58542423863565,
+        "counterfactual_xlag1_min_c": 6.098507079385942,
+        "counterfactual_xlag1_max_c": 30.58542423863565,
+        "metadata": {
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "lag_blocks": [
+            {
+              "name": "lag0_current_month",
+              "columns": [
+                2,
+                3
+              ]
+            },
+            {
+              "name": "lag1_previous_calendar_month",
+              "columns": [
+                4,
+                5
+              ]
+            }
+          ]
+        }
+      },
+      "fit": {
+        "family_and_link": "Poisson log-link pseudo-likelihood with log population offset",
+        "fit_method": "fixed_design.fit_tw; component-specific two-way region/year/intersection CR1 covariance",
+        "fit_max_iterations": 30,
+        "fit_tolerance_max_abs_step": 1e-09,
+        "converged": true,
+        "iterations": 13,
+        "max_abs_step": 2.3569080020990896e-10,
+        "design_rank": 48,
+        "design_columns": 48,
+        "condition_number_information": 11739373.425809134,
+        "used_lstsq": false,
+        "used_pinv": false,
+        "region_clusters": 32,
+        "year_clusters": 10,
+        "region_year_intersections": 320,
+        "df": 9,
+        "alpha": 0.1,
+        "critical_value_exact_student_t": 1.8331129326536333,
+        "corrected_attribution_variance": 579511768.8596256,
+        "corrected_attribution_standard_error": 24073.05067621521,
+        "base_half_width": 44128.620522996396,
+        "base_interval": [
+          -95413.46643496769,
+          -7156.225388974897
+        ],
+        "base_interval_status": "model-based approximate interval; no exact coverage claim",
+        "covariance_min_eigenvalue": -0.04987955462337052
+      },
+      "estimate": {
+        "A_hat_expected_outcome_count": -51284.84591197129,
+        "fitted_factual_expected_outcome_count": 6933625.999999945,
+        "fitted_counterfactual_expected_outcome_count": 6984910.845911916,
+        "temperature_counterfactual_shift_c": 1.0
+      },
+      "sensitivity_class": {
+        "class_id": "centered_two_lag_fixed_allocation_finite_grid_v1",
+        "allocation_weights": [
+          0.5,
+          0.5
+        ],
+        "delta_grid_predeclared_in_script": [
+          0.01,
+          0.025,
+          0.05,
+          0.1
+        ],
+        "main_delta": 0.05,
+        "constraints": "|b(T)'u| <= delta for all observed factual and counterfactual basis rows in both mapped lag blocks, centered at the fixed panel factual median Tref",
+        "uniform_exponential_remainder": true,
+        "continuous_temperature_certificate": false,
+        "automatic_1_over_0_85_correction": false,
+        "main_delta_result": {
+          "delta": 0.05,
+          "method": "fixed_weight_lag_allocation_finite_grid_v1",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "lag_block_columns": [
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "allocation_weights": [
+            0.5,
+            0.5
+          ],
+          "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+          "constraint_rows": 15232,
+          "constraint_unique_basis_rows": 7680,
+          "feasible": true,
+          "bounded_class": true,
+          "constraint_rank": 2,
+          "A_hat": -51284.84591197129,
+          "gradient_u": [
+            7413337.038012225,
+            48521917.37427741
+          ],
+          "linear_max_plus": {
+            "status": "optimal",
+            "value": 28465.36521690326,
+            "u": [
+              0.003331489033536796,
+              7.765385987922308e-05
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "linear_max_minus": {
+            "status": "optimal",
+            "value": 28465.36521690326,
+            "u": [
+              -0.003331489033536796,
+              -7.765385987922308e-05
+            ],
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+          },
+          "B_lin": 28465.36521690326,
+          "base_half_width": 44128.620522996396,
+          "exposure_columns_only_perturbed": true,
+          "nuisance_column_count": 44,
+          "continuous_temperature_certificate": false,
+          "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+          "polytope_vertex_count": 4,
+          "B_lin_vertex_check": 28465.365216903247,
+          "LP_vertex_objective_max_error": 1.4551915228366852e-11,
+          "rowwise_predictor_max_abs_factual": 0.04559661160595843,
+          "rowwise_predictor_max_abs_counterfactual": 0.0470191840309698,
+          "R_uniform": 2422.600192151155,
+          "sensitivity_radius": 30887.965409054417,
+          "A_sensitivity_bounds": [
+            -82172.81132102571,
+            -20396.880502916876
+          ],
+          "interval_bounds": [
+            -126301.43184402211,
+            23731.74002007952
+          ],
+          "threshold_diagnostics": {
+            "status": "zero_not_excluded",
+            "base_interval_half_width": 44128.620522996396,
+            "expanded_interval_excludes_zero": false,
+            "signed_margin_from_zero": 0.0
+          },
+          "adversarial_sample_checks": {
+            "status": "pass",
+            "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+            "candidate_count": 70,
+            "max_constraint_violation": 5.551115123125783e-17,
+            "all_candidates_feasible": true,
+            "max_abs_actual_attribution_shift": 28577.27078993153,
+            "max_abs_actual_remainder": 174.20868202723068,
+            "actual_remainders_within_R_uniform": true,
+            "actual_shifts_within_sensitivity_envelope": true,
+            "max_nuisance_coefficient_change": 0.0,
+            "max_design_mapping_reconstruction_error": 2.0816681711721685e-17,
+            "LP_vs_vertex_objective_error": 1.4551915228366852e-11,
+            "all_checks_pass": true
+          }
+        },
+        "delta_grid_results": [
+          {
+            "delta": 0.01,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -51284.84591197129,
+            "gradient_u": [
+              7413337.038012225,
+              48521917.37427741
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 5693.073043380649,
+              "u": [
+                0.0006662978067073593,
+                1.5530771975844555e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 5693.073043380649,
+              "u": [
+                -0.0006662978067073593,
+                -1.5530771975844555e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 5693.073043380649,
+            "base_half_width": 44128.620522996396,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 5693.073043380649,
+            "LP_vertex_objective_max_error": 0.0,
+            "rowwise_predictor_max_abs_factual": 0.009119322321191685,
+            "rowwise_predictor_max_abs_counterfactual": 0.009403836806193961,
+            "R_uniform": 96.24023360125716,
+            "sensitivity_radius": 5789.313276981907,
+            "A_sensitivity_bounds": [
+              -57074.1591889532,
+              -45495.53263498939
+            ],
+            "interval_bounds": [
+              -101202.7797119496,
+              -1366.9121119929905
+            ],
+            "threshold_diagnostics": {
+              "status": "negative_exclusion",
+              "base_interval_half_width": 44128.620522996396,
+              "expanded_interval_excludes_zero": true,
+              "signed_margin_from_zero": -1366.9121119929905
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 1.734723475976807e-18,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 5697.400741433725,
+              "max_abs_actual_remainder": 7.019346053628851,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 2.6020852139652106e-18,
+              "LP_vs_vertex_objective_error": 0.0,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.025,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -51284.84591197129,
+            "gradient_u": [
+              7413337.038012225,
+              48521917.37427741
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 14232.68260845163,
+              "u": [
+                0.001665744516768398,
+                3.882692993961154e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 14232.68260845163,
+              "u": [
+                -0.001665744516768398,
+                -3.882692993961154e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 14232.68260845163,
+            "base_half_width": 44128.620522996396,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 14232.682608451623,
+            "LP_vertex_objective_max_error": 7.275957614183426e-12,
+            "rowwise_predictor_max_abs_factual": 0.022798305802979216,
+            "rowwise_predictor_max_abs_counterfactual": 0.0235095920154849,
+            "R_uniform": 603.0517009053046,
+            "sensitivity_radius": 14835.734309356936,
+            "A_sensitivity_bounds": [
+              -66120.58022132823,
+              -36449.11160261436
+            ],
+            "interval_bounds": [
+              -110249.20074432463,
+              7679.508920382039
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 44128.620522996396,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 2.7755575615628914e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 14260.078402948566,
+              "max_abs_actual_remainder": 43.750962657646596,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 1.0408340855860843e-17,
+              "LP_vs_vertex_objective_error": 7.275957614183426e-12,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.05,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -51284.84591197129,
+            "gradient_u": [
+              7413337.038012225,
+              48521917.37427741
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 28465.36521690326,
+              "u": [
+                0.003331489033536796,
+                7.765385987922308e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 28465.36521690326,
+              "u": [
+                -0.003331489033536796,
+                -7.765385987922308e-05
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 28465.36521690326,
+            "base_half_width": 44128.620522996396,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 28465.365216903247,
+            "LP_vertex_objective_max_error": 1.4551915228366852e-11,
+            "rowwise_predictor_max_abs_factual": 0.04559661160595843,
+            "rowwise_predictor_max_abs_counterfactual": 0.0470191840309698,
+            "R_uniform": 2422.600192151155,
+            "sensitivity_radius": 30887.965409054417,
+            "A_sensitivity_bounds": [
+              -82172.81132102571,
+              -20396.880502916876
+            ],
+            "interval_bounds": [
+              -126301.43184402211,
+              23731.74002007952
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 44128.620522996396,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 5.551115123125783e-17,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 28577.27078993153,
+              "max_abs_actual_remainder": 174.20868202723068,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 2.0816681711721685e-17,
+              "LP_vs_vertex_objective_error": 1.4551915228366852e-11,
+              "all_checks_pass": true
+            }
+          },
+          {
+            "delta": 0.1,
+            "method": "fixed_weight_lag_allocation_finite_grid_v1",
+            "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+            "lag_names": [
+              "lag0_current_month",
+              "lag1_previous_calendar_month"
+            ],
+            "lag_block_columns": [
+              [
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ]
+            ],
+            "basis_names": [
+              "ns_linear_centered_at_Tref",
+              "ns_nonlinear_centered_at_Tref"
+            ],
+            "allocation_weights": [
+              0.5,
+              0.5
+            ],
+            "constraint_grid": "All observed factual and counterfactual basis rows for every explicitly mapped lag block; finite support only.",
+            "constraint_rows": 15232,
+            "constraint_unique_basis_rows": 7680,
+            "feasible": true,
+            "bounded_class": true,
+            "constraint_rank": 2,
+            "A_hat": -51284.84591197129,
+            "gradient_u": [
+              7413337.038012225,
+              48521917.37427741
+            ],
+            "linear_max_plus": {
+              "status": "optimal",
+              "value": 56930.73043380652,
+              "u": [
+                0.006662978067073592,
+                0.00015530771975844616
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "linear_max_minus": {
+              "status": "optimal",
+              "value": 56930.73043380652,
+              "u": [
+                -0.006662978067073592,
+                -0.00015530771975844616
+              ],
+              "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)"
+            },
+            "B_lin": 56930.73043380652,
+            "base_half_width": 44128.620522996396,
+            "exposure_columns_only_perturbed": true,
+            "nuisance_column_count": 44,
+            "continuous_temperature_certificate": false,
+            "class_scope": "conditional sensitivity bound for the stated finite-grid and fixed-allocation perturbation class",
+            "polytope_vertex_count": 4,
+            "B_lin_vertex_check": 56930.73043380649,
+            "LP_vertex_objective_max_error": 2.9103830456733704e-11,
+            "rowwise_predictor_max_abs_factual": 0.09119322321191686,
+            "rowwise_predictor_max_abs_counterfactual": 0.0940383680619396,
+            "R_uniform": 9774.434177211671,
+            "sensitivity_radius": 66705.16461101819,
+            "A_sensitivity_bounds": [
+              -117990.01052298948,
+              15420.318699046897
+            ],
+            "interval_bounds": [
+              -162118.63104598588,
+              59548.93922204329
+            ],
+            "threshold_diagnostics": {
+              "status": "zero_not_excluded",
+              "base_interval_half_width": 44128.620522996396,
+              "expanded_interval_excludes_zero": false,
+              "signed_margin_from_zero": 0.0
+            },
+            "adversarial_sample_checks": {
+              "status": "pass",
+              "sample_scope": "all enumerated vertices, both LP optimizers, and seeded convex combinations; diagnostics only, with the row-wise remainder supplying the class-wide argument",
+              "candidate_count": 70,
+              "max_constraint_violation": 1.1102230246251565e-16,
+              "all_candidates_feasible": true,
+              "max_abs_actual_attribution_shift": 57397.002592364326,
+              "max_abs_actual_remainder": 690.5401654961606,
+              "actual_remainders_within_R_uniform": true,
+              "actual_shifts_within_sensitivity_envelope": true,
+              "max_nuisance_coefficient_change": 0.0,
+              "max_design_mapping_reconstruction_error": 4.163336342344337e-17,
+              "LP_vs_vertex_objective_error": 2.9103830456733704e-11,
+              "all_checks_pass": true
+            }
+          }
+        ],
+        "unrestricted_cumulative_nullspace_diagnostic": {
+          "class": "unrestricted cumulative-only two-lag perturbations",
+          "design_source": "c07_bai_frozen.design S1 two-lag ordering, with each temperature basis centered at the panel factual median",
+          "lag_names": [
+            "lag0_current_month",
+            "lag1_previous_calendar_month"
+          ],
+          "basis_names": [
+            "ns_linear_centered_at_Tref",
+            "ns_nonlinear_centered_at_Tref"
+          ],
+          "direction_lag0": [
+            0.11140622538453673,
+            -0.9937749508543521
+          ],
+          "direction_lag1": [
+            -0.11140622538453673,
+            0.9937749508543521
+          ],
+          "cumulative_direction_max_abs": 0.0,
+          "gradient_slope_per_unit_scale": 250514.25532391173,
+          "gradient_difference_norm": 250514.2553239117,
+          "unbounded_linear_objective_demonstrated": true,
+          "proof": "For d_beta0=v and d_beta1=-v, the cumulative coefficient perturbation is zero and the linear attribution change is (g0-g1)'v. Scaling v gives an unbounded linear objective whenever g0 != g1."
+        },
+        "interpretation": "conditional sensitivity bound for this newly declared fixed-allocation class; no empirical coverage or causal-identification claim"
+      },
+      "historical_comparison": {
+        "outcome_label": "deaths",
+        "historical_artifact": {
+          "A1": -53083.109485212946,
+          "A_lo": -65664.6285730045,
+          "A_hi": -41150.94872643381,
+          "robust_lo": -116666.63714537179,
+          "robust_hi": -8061.577239672151,
+          "robust_width": 108605.05990569963,
+          "base_width": 83860.54951499536,
+          "tipping_delta": null
+        },
+        "historical_artifact_validity": "historical_artifact_unverified_statistical_validity",
+        "comparison_status": "not a like-for-like width or interval comparison: historical S1 column mapping and sensitivity-class specification were flagged in statistical_code_review.md; the repaired class is newly centered and fixed-weight",
+        "old_artifact_file": "inputs\\legacy\\simulation\\results\\external_constraint.json"
+      }
+    }
+  }
+}
